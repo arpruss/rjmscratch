@@ -1,30 +1,31 @@
-// https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
-alert("loading");
 class RaspberryJamMod {
     getInfo() {
         return {
             "id": "RaspberryJamMod",
             "name": "RaspberryJamMod",
+            
             "blocks": [{
                     "opcode": "connect",
                     "blockType": "command",
-                    "text": "connect to [ip]",
+                    "text": "Connect to [ip]",
                     "arguments": {
                         "ip": {
                             "type": "string",
                             "defaultValue": "localhost"
                         },
                     }
-                },
             }],
-        "menus": { 
-        }
+        "menus": {}
     };
+    }
 
-    connect({ip}) { 
-        rjm.socket = new WebSocket("ws://" + ip  + ":14711");
+    connect({ip}){
+        rjm.ip = ip;
+        console.log("connecting to "+rjm.ip);
+        rjm.ws = new WebSocket("ws://"+ip+":14711");
+        console.log(rjm.ws);
     };
 }
-alert("hello");
-Scratch.extensions.register(new RaspberryJamMod());
-alert("reg");
+
+rjm = new RaspberryJamMod();
+Scratch.extensions.register(rjm);
