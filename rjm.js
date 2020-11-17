@@ -1,21 +1,6 @@
 // https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
 
 class RaspberryJamMod {
-}
-Scratch.extensions.register(new RaspberryJamMod());
-
-getInfo() {
-    return {
-        "id": "RaspberryJamMod",
-        "name": "RaspberryJamMod",
-        "blocks": [
-        ],
-        "menus": { /
-        }
-    };
-}
-
-class RaspberryJamMod {
     getInfo() {
         return {
             "id": "RaspberryJamMod",
