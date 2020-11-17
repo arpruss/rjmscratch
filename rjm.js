@@ -23,7 +23,7 @@ class RaspberryJamMod {
 
     connect({ip}) { 
         rjm.socket = new WebSocket("ws://" + ip  + ":14711");
-    }
+    };
 }
 alert("hello");
 rjm = new RaspberryJamMod();
