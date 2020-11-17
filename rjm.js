@@ -1,3 +1,5 @@
+// https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
+
 class RaspberryJamMod {
 }
 Scratch.extensions.register(new RaspberryJamMod());
@@ -38,5 +40,7 @@ class RaspberryJamMod {
         rjm.socket = new WebSocket("ws://" + ip  + ":14711");
     }
 }
+alert("hello");
 rjm = new RaspberryJamMod();
 Scratch.extensions.register(rjm);
+alert("reg");
