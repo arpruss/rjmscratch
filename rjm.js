@@ -1,5 +1,5 @@
 // https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
-
+alert("loading");
 class RaspberryJamMod {
     getInfo() {
         return {
@@ -26,6 +26,5 @@ class RaspberryJamMod {
     };
 }
 alert("hello");
-rjm = new RaspberryJamMod();
-Scratch.extensions.register(rjm);
+Scratch.extensions.register(new RaspberryJamMod());
 alert("reg");
