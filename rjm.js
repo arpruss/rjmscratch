@@ -16,7 +16,7 @@ class RaspberryJamMod {
             "name": "RaspberryJamMod",
             
             "blocks": [{
-                    "opcode": "connect_p",
+                    "opcode": "connect",
                     "blockType": "command",
                     "text": "Connect to [ip]",
                     "arguments": {
