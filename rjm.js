@@ -115,11 +115,7 @@ class RaspberryJamMod {
             rjm.socket.onerror = function(err) {
                 reject(err);
             };
-        }).then(result => { console.log("res "+result); })
-          .then(rjm.getPosition())
-          .then(result => { console.log("position "+result); })
-          .then(rjm.getRotation())
-          .then(result => { console.log("rotation "+result); });
+        }).then(result => { rjm.getPosition().then( result => console.log(result); }));
     };
     
     chat({msg}){
