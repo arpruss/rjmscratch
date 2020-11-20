@@ -43,7 +43,7 @@ class RJMTurtle {
 class RaspberryJamMod {
     constructor() {
         this.socket = null;
-        this.turtle = new RJMTurtle();
+        //this.turtle = new RJMTurtle();
     }
     
     getInfo() {
