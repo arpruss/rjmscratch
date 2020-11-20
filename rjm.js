@@ -110,7 +110,7 @@ class RaspberryJamMod {
                 console.log("opened");
                 resolve();
             };
-            server.onerror = function(err) {
+            rjm.socket.onerror = function(err) {
                 reject(err);
             };
         }).then(rjm.getPosition())
