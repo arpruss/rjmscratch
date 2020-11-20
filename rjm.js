@@ -80,9 +80,10 @@ class RaspberryJamMod {
                 reject(err);
             };
             this.socket.send(msg);
-        }
+        };
     };
     
+/*    
     getPosition() {
         return sendAndReceive("player.getPos()")
             .then(pos => {
@@ -115,6 +116,7 @@ class RaspberryJamMod {
           .then(getRotation())
           .then(result => { console.log("rotation "+result); });
     };
+*/
     
     chat({msg}){
         this.socket.send("chat.post("+msg+")");
