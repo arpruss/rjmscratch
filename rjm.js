@@ -109,7 +109,7 @@ class RaspberryJamMod {
             rjm.socket = new WebSocket("ws://"+ip+":14711");
             rjm.socket.onopen = function() {                
                 console.log("opened");
-                resolve("opened");
+                resolve();
             };
             rjm.socket.onerror = function(err) {
                 reject(err);
