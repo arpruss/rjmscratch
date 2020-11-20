@@ -8,6 +8,7 @@ class Turtle {
         this.pos = [0,0,0];
         this.penDown = true;
         this.matrix = yawMatrix(yaw);
+        this.TO_RADIANS = Math.PI / 180;
     }
     
     mmMultiply(a,b) {
@@ -18,21 +19,21 @@ class Turtle {
     };
     
     yawMatrix(angleDegrees) {
-        var theta = angleDegrees * MCPI.TO_RADIANS;
+        var theta = angleDegrees * this.TO_RADIANS;
         return [[Math.cos(theta), 0., -Math.sin(theta)],
                 [0.,         1., 0.],
                 [Math.sin(theta), 0., Math.cos(theta)]];
     };
     
     rollMatrix(angleDegrees) {
-        var theta = angleDegrees * MCPI.TO_RADIANS;
+        var theta = angleDegrees * this.TO_RADIANS;
         return [[Math.cos(theta), -Math.sin(theta), 0.],
                 [Math.sin(theta), Math.cos(theta),0.],
                 [0.,          0.,          1.]];
     };
     
     pitchMatrix(angleDegrees) {
-        var theta = angleDegrees * MCPI.TO_RADIANS;
+        var theta = angleDegrees * this.TO_RADIANS;
         return [[1.,          0.,          0.],
                 [0., Math.cos(theta),Math.sin(theta)],
                 [0., -Math.sin(theta),Math.cos(theta)]];
@@ -42,9 +43,6 @@ class Turtle {
 
 class RaspberryJamMod {
     constructor() {
-        this.TO_RADIANS = Math.PI / 180;
-        this.turtle = new Turtle();
-        this.penDown = true;
         this.socket = null;
     }
     
@@ -133,7 +131,8 @@ class RaspberryJamMod {
             rjm.socket.send(msg);
         });
     };
-    
+
+/*    
     drawLine(x1,y1,z1,x2,y2,z2) {
         var l = this.getLine(x1,y1,z1,x2,y2,z2);
         for (var i=0; i<l.length ; i++) {
@@ -169,7 +168,7 @@ class RaspberryJamMod {
         this.turtle.pos[0] = newX;
         this.turtle.pos[0] = newY;
         this.turtle.pos[0] = newZ;
-    };
+    }; */
     
     getPosition() {
         return this.sendAndReceive("player.getPos()")
