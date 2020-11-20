@@ -63,7 +63,7 @@ class RaspberryJamMod {
             ],
         "menus": {}
         };
-    }
+    };
 
     connect({ip}){
         this.ip = ip;
