@@ -1,13 +1,12 @@
 // https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
 //  https://sheeptester.github.io/scratch-gui/?url=https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
 
-class Turtle {
+class RJMTurtle {
     constructor() {
         block = "1";
         this.nib = [[0,0,0]];
         this.pos = [0,0,0];
         this.penDown = true;
-        this.matrix = this.yawMatrix(0);
         this.TO_RADIANS = Math.PI / 180;
     }
     
@@ -44,7 +43,7 @@ class Turtle {
 class RaspberryJamMod {
     constructor() {
         this.socket = null;
-        this.turtle = new Turtle();
+        this.turtle = new RJMTurtle();
     }
     
     getInfo() {
