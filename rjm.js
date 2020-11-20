@@ -1,4 +1,5 @@
 // https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
+// https://sheeptester.github.io/scratch-gui/?url=https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
 
 class RaspberryJamMod {
     constructor() {
@@ -186,7 +187,7 @@ class RaspberryJamMod {
         return line;
     };
     
-    setBlock(x,y,z,block) {
+    setBlock({x,y,z,block}) {
 /*      if (block != "0" && Math.floor(x) == Math.floor(this.playerX) && Math.floor(z) == Math.floor(this.playerZ)
           && (Math.floor(y) >= this.playerShiftedHeight) ) {
             this.playerShiftedHeight = Math.floor(y) + 1;
