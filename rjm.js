@@ -73,6 +73,7 @@ class RaspberryJamMod {
     
     sendAndReceive(msg) {
         var rjm = this;
+        console.log("sAR"+msg);
         return new Promise(function(resolve, reject) {            
             rjm.socket.onmessage = function(event) {
                 resolve(event.data.trim());
