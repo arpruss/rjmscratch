@@ -1,4 +1,4 @@
-//https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
+// https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
 
 class RaspberryJamMod {
     constructor() {
@@ -43,19 +43,19 @@ class RaspberryJamMod {
                     "arguments": {
                         "x": {
                             "type": "number",
-                            "defaultValue": "0"
+                            "defaultValue": 0
                         },
                         "y": {
                             "type": "number",
-                            "defaultValue": "0"
+                            "defaultValue": 0
                         },
                         "z": {
                             "type": "number",
-                            "defaultValue": "0"
+                            "defaultValue": 0
                         },
                         "b": {
-                            "type": "number",
-                            "defaultValue": "1"
+                            "type": "string",
+                            "defaultValue": 1
                         },
                     }
             },            
@@ -192,6 +192,7 @@ class RaspberryJamMod {
             this.playerShiftedHeight = Math.floor(y) + 1;
             this.socket.send("player.setPos("+this.playerX+","+this.playerShiftedHeight+","+this.playerZ+")");
       } */
+      console.log("Put "+block+" at "+x+" "+y+" "+z);
       this.socket.send("world.setBlock("+x+","+y+","+z+","+block+")");
     };
 }
