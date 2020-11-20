@@ -99,7 +99,6 @@ class RaspberryJamMod {
             });
     };
 
-/*    
     connect_p({ip}){
         this.ip = ip;
         console.log("connecting to "+ip);
@@ -117,7 +116,6 @@ class RaspberryJamMod {
           .then(getRotation())
           .then(result => { console.log("rotation "+result); });
     };
-*/    
     
     chat({msg}){
         this.socket.send("chat.post("+msg+")");
