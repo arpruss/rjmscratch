@@ -44,19 +44,19 @@ class RaspberryJamMod {
                     "arguments": {
                         "x": {
                             "type": "number",
-                            "defaultValue": 0
+                            "defaultValue": "0"
                         },
                         "y": {
                             "type": "number",
-                            "defaultValue": 0
+                            "defaultValue": "0"
                         },
                         "z": {
                             "type": "number",
-                            "defaultValue": 0
+                            "defaultValue": "0"
                         },
                         "b": {
                             "type": "string",
-                            "defaultValue": 1
+                            "defaultValue": "1"
                         },
                     }
             },            
@@ -187,14 +187,14 @@ class RaspberryJamMod {
         return line;
     };
     
-    setBlock({x,y,z,block}) {
+    setBlock({x,y,z,b}) {
 /*      if (block != "0" && Math.floor(x) == Math.floor(this.playerX) && Math.floor(z) == Math.floor(this.playerZ)
           && (Math.floor(y) >= this.playerShiftedHeight) ) {
             this.playerShiftedHeight = Math.floor(y) + 1;
             this.socket.send("player.setPos("+this.playerX+","+this.playerShiftedHeight+","+this.playerZ+")");
       } */
       console.log("Put "+block+" at "+x+" "+y+" "+z);
-      this.socket.send("world.setBlock("+x+","+y+","+z+","+block+")");
+      this.socket.send("world.setBlock("+x+","+y+","+z+","+b+")");
     };
 }
 
