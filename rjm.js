@@ -80,7 +80,7 @@ class RaspberryJamMod {
                 reject(err);
             };
             this.socket.send(msg);
-        };
+        });
     };
     
     getPosition() {
