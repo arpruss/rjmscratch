@@ -16,7 +16,7 @@ class RaspberryJamMod {
             "name": "RaspberryJamMod",
             
             "blocks": [{
-                    "opcode": "connect",
+                    "opcode": "connect_p",
                     "blockType": "command",
                     "text": "Connect to [ip]",
                     "arguments": {
@@ -69,6 +69,51 @@ class RaspberryJamMod {
         this.ip = ip;
         console.log("connecting to "+ip);
         this.socket = new WebSocket("ws://"+ip+":14711");
+    };
+    
+    sendAndReceive(msg) {
+        return new Promise(function(resolve, reject) {            
+            this.socket.onmessage = function(event) {
+                resolve(event.data.trim());
+            };
+            this.socket.onerror = function(err) {
+                reject(err);
+            };
+            this.socket.send(msg);
+        }
+    };
+    
+    getPosition() {
+        return sendAndReceive("player.getPos()")
+            .then(pos => {
+                p = pos.split(",");
+                return [parseFloat(p[0]),parseFloat(p[1]),parseFloat(p[2])];
+            });
+    };
+    
+    getRotation() {
+        return sendAndReceive("player.getRotation()")
+            .then(pos => {
+                p = pos.split(",");
+                return [parseFloat(p[0]),parseFloat(p[1]),parseFloat(p[2])];
+            });
+    };
+    
+    connect_p({ip}){
+        this.ip = ip;
+        console.log("connecting to "+ip);
+        return new Promise(function(resolve, reject) {            
+            this.socket = new WebSocket("ws://"+ip+":14711");
+            this.socket.onopen = function() {                
+                resolve();
+            };
+            server.onerror = function(err) {
+                reject(err);
+            };
+        }).then(getPosition())
+          .then(result => { console.log("position "+result); })
+          .then(getRotation())
+          .then(result => { console.log("rotation "+result); });
     };
     
     chat({msg}){
