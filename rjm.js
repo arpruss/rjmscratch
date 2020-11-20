@@ -193,7 +193,7 @@ class RaspberryJamMod {
             this.playerShiftedHeight = Math.floor(y) + 1;
             this.socket.send("player.setPos("+this.playerX+","+this.playerShiftedHeight+","+this.playerZ+")");
       } */
-      console.log("Put "+block+" at "+x+" "+y+" "+z);
+      console.log("Put "+b+" at "+x+" "+y+" "+z);
       this.socket.send("world.setBlock("+x+","+y+","+z+","+b+")");
     };
 }
