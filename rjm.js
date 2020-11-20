@@ -6,6 +6,7 @@ class Turtle {
         block = "1";
         this.nib = [[0,0,0]];
         this.pos = [0,0,0];
+        this.penDown = true;
         this.matrix = yawMatrix(yaw);
     }
     
@@ -97,6 +98,17 @@ class RaspberryJamMod {
                         },
                     }
             },            
+            {
+                    "opcode": "moveTurtle",
+                    "blockType": "command",
+                    "text": "Move turtle [n] steps",
+                    "arguments": {
+                        "n": {
+                            "type": "number",
+                            "defaultValue": "1"
+                        },
+                    }
+            },            
             ],
         "menus": {}
         };
@@ -120,6 +132,43 @@ class RaspberryJamMod {
             console.log("sending "+msg);
             rjm.socket.send(msg);
         });
+    };
+    
+    drawLine(x1,y1,z1,x2,y2,z2) {
+        var l = this.getLine(x1,y1,z1,x2,y2,z2);
+        for (var i=0; i<l.length ; i++) {
+            this.drawPoint(l[i][0],l[i][1],l[i][2]);
+        }
+    };
+    
+    drawPoint(x0,y0,z0) {
+        var l = this.turtle.nib.length;
+        if (l == 0) {
+            return;
+        }
+        else if (l == 1) {
+            this.setBlock(x0,y0,z0,this.turtle.block);
+            return;
+        }
+
+        for (var i = 0 ; i < l ; i++) {
+            var p = this.turtle.nib[i];
+            var x = p[0] + x0;
+            var y = p[1] + y0;
+            var z = p[2] + z0;
+            this.setBlock(x,y,z,this.turtle.block);
+        }
+    };
+
+    moveTurtle({n}) {
+        var newX = this.turtle.pos[0] + MCPI.matrix[0][2] * n;
+        var newY = this.turtle.pos[1] + MCPI.matrix[1][2] * n;
+        var newZ = this.turtle.pos[2] + MCPI.matrix[2][2] * n;
+        if (this.turtle.penDown)
+            this.drawLine(this.turtle.pos[0],this.turtle.pos[1],this.turtle.pos[2],newX,newY,newZ);
+        this.turtle.pos[0] = newX;
+        this.turtle.pos[0] = newY;
+        this.turtle.pos[0] = newZ;
     };
     
     getPosition() {
@@ -157,7 +206,7 @@ class RaspberryJamMod {
             console.log("player position "+rjm.playerPos);
         })).then (result => rjm.getRotation().then( result => {
             rjm.playerRot = result;
-            rjm.turtle = new Turtle(result[1]);
+            rjm.turtle = new Turtle(math.floor(0.5+result[1]/90)*90);
             console.log("player rotation "+rjm.playerRot);
         }));
     };
