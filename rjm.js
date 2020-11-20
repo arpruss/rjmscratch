@@ -80,6 +80,7 @@ class RaspberryJamMod {
             rjm.socket.onerror = function(err) {
                 reject(err);
             };
+            console.log("sending "+msg);
             rjm.socket.send(msg);
         });
     };
