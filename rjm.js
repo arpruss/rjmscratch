@@ -73,6 +73,7 @@ class RaspberryJamMod {
     
     sendAndReceive(msg) {
         var rjm = this;
+        console.log("sAR "+msg);
         return new Promise(function(resolve, reject) {            
             rjm.socket.onmessage = function(event) {
                 resolve(event.data.trim());
@@ -109,13 +110,13 @@ class RaspberryJamMod {
             rjm.socket = new WebSocket("ws://"+ip+":14711");
             rjm.socket.onopen = function() {                
                 console.log("opened");
-                resolve();
+                resolve("opened");
             };
             rjm.socket.onerror = function(err) {
                 reject(err);
             };
         }).then(result => { console.log("res "+result); })
-            .then(rjm.getPosition())
+          .then(rjm.getPosition())
           .then(result => { console.log("position "+result); })
           .then(rjm.getRotation())
           .then(result => { console.log("rotation "+result); });
