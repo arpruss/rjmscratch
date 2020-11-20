@@ -89,7 +89,7 @@ class RaspberryJamMod {
     getPosition() {
         return this.sendAndReceive("player.getPos()")
             .then(pos => {
-                p = pos.split(",");
+                var p = pos.split(",");
                 return [parseFloat(p[0]),parseFloat(p[1]),parseFloat(p[2])];
             });
     };
@@ -97,7 +97,7 @@ class RaspberryJamMod {
     getRotation() {
         return this.sendAndReceive("player.getRotation()")
             .then(pos => {
-                p = pos.split(",");
+                var p = pos.split(",");
                 return [parseFloat(p[0]),parseFloat(p[1]),parseFloat(p[2])];
             });
     };
