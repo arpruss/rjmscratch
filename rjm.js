@@ -1,6 +1,14 @@
 //https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
 
 class RaspberryJamMod {
+    constructor() {
+        this.TO_RADIANS = Math.PI / 180;
+        this.block = "1";
+        this.penDown = true;
+        this.nib = [[0,0,0]];
+        this.ws = null;
+    }
+    
     getInfo() {
         return {
             "id": "RaspberryJamMod",
@@ -30,17 +38,17 @@ class RaspberryJamMod {
             },            
             ],
         "menus": {}
-    };
+        };
     }
 
     connect({ip}){
-        rjm.ip = ip;
-        console.log("connecting to "+rjm.ip);
-        rjm.ws = new WebSocket("ws://"+ip+":14711");
+        this.ip = ip;
+        console.log("connecting to "+ip);
+        this.ws = new WebSocket("ws://"+ip+":14711");
     };
     
     chat({msg}){
-        rjm.ws.send("chat.post("+msg+")");
+        this.ws.send("chat.post("+msg+")");
         console.log("chat: "+msg);
     };
     
