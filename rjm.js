@@ -132,7 +132,6 @@ class RaspberryJamMod {
         });
     };
 
-/*    
     drawLine(x1,y1,z1,x2,y2,z2) {
         var l = this.getLine(x1,y1,z1,x2,y2,z2);
         for (var i=0; i<l.length ; i++) {
@@ -168,7 +167,7 @@ class RaspberryJamMod {
         this.turtle.pos[0] = newX;
         this.turtle.pos[0] = newY;
         this.turtle.pos[0] = newZ;
-    }; */
+    }; 
     
     getPosition() {
         return this.sendAndReceive("player.getPos()")
