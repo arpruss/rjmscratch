@@ -115,12 +115,12 @@ class RaspberryJamMod {
             rjm.socket.onerror = function(err) {
                 reject(err);
             };
-        }).then(result => rjm.getPosition().then( {
+        }).then(result => rjm.getPosition().then( result => {
             rjm.playerX = result[0];
             rjm.playerY = result[1];
             rjm.playerZ = result[2];
             console.log("player position "+rjm.playerX+" "+rjm.playerY+" "+rjm.playerZ);
-        })).then (result => rjm.getRotation().then( {
+        })).then (result => rjm.getRotation().then( result => {
             rjm.rotationX = result[0];
             rjm.rotationY = result[0];
             rjm.rotationZ = result[0];
