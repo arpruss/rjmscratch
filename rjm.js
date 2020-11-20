@@ -72,14 +72,15 @@ class RaspberryJamMod {
     };
     
     sendAndReceive(msg) {
+        var rjm = this;
         return new Promise(function(resolve, reject) {            
-            this.socket.onmessage = function(event) {
+            rjm.socket.onmessage = function(event) {
                 resolve(event.data.trim());
             };
-            this.socket.onerror = function(err) {
+            rjm.socket.onerror = function(err) {
                 reject(err);
             };
-            this.socket.send(msg);
+            rjm.socket.send(msg);
         });
     };
     
@@ -102,18 +103,19 @@ class RaspberryJamMod {
     connect_p({ip}){
         this.ip = ip;
         console.log("connecting to "+ip);
+        var rjm = this;
         return new Promise(function(resolve, reject) {            
-            this.socket = new WebSocket("ws://"+ip+":14711");
-            this.socket.onopen = function() {                
+            rjm.socket = new WebSocket("ws://"+ip+":14711");
+            rjm.socket.onopen = function() {                
                 console.log("opened");
                 resolve();
             };
             server.onerror = function(err) {
                 reject(err);
             };
-        }).then(this.getPosition())
+        }).then(rjm.getPosition())
           .then(result => { console.log("position "+result); })
-          .then(this.getRotation())
+          .then(rjm.getRotation())
           .then(result => { console.log("rotation "+result); });
     };
     
