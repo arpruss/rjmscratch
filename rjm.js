@@ -2,12 +2,12 @@
 //  https://sheeptester.github.io/scratch-gui/?url=https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
 
 class Turtle {
-    constructor(yaw) {
+    constructor() {
         block = "1";
         this.nib = [[0,0,0]];
         this.pos = [0,0,0];
         this.penDown = true;
-        this.matrix = yawMatrix(yaw);
+        this.matrix = this.yawMatrix(0);
         this.TO_RADIANS = Math.PI / 180;
     }
     
@@ -44,6 +44,7 @@ class Turtle {
 class RaspberryJamMod {
     constructor() {
         this.socket = null;
+        this.turtle = new Turtle();
     }
     
     getInfo() {
@@ -204,7 +205,7 @@ class RaspberryJamMod {
             console.log("player position "+rjm.playerPos);
         })).then (result => rjm.getRotation().then( result => {
             rjm.playerRot = result;
-            rjm.turtle = new Turtle(math.floor(0.5+result[1]/90)*90);
+            rjm.turtle.matrix = rjm.turtle.yawMatrix(math.floor(0.5+result[1]/90)*90);
             console.log("player rotation "+rjm.playerRot);
         }));
     };
