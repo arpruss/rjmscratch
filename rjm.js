@@ -16,7 +16,7 @@ class RaspberryJamMod {
             "name": "RaspberryJamMod",
             
             "blocks": [{
-                    "opcode": "connect_p",
+                    "opcode": "connect",
                     "blockType": "command",
                     "text": "Connect to [ip]",
                     "arguments": {
@@ -71,6 +71,7 @@ class RaspberryJamMod {
         this.socket = new WebSocket("ws://"+ip+":14711");
     };
     
+/*    
     sendAndReceive(msg) {
         return new Promise(function(resolve, reject) {            
             this.socket.onmessage = function(event) {
@@ -83,7 +84,6 @@ class RaspberryJamMod {
         };
     };
     
-/*    
     getPosition() {
         return sendAndReceive("player.getPos()")
             .then(pos => {
