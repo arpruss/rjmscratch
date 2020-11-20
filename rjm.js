@@ -1,5 +1,5 @@
-// https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
-// https://sheeptester.github.io/scratch-gui/?url=https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
+//  https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
+//  https://sheeptester.github.io/scratch-gui/?url=https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
 
 class RaspberryJamMod {
     constructor() {
