@@ -105,6 +105,7 @@ class RaspberryJamMod {
         return new Promise(function(resolve, reject) {            
             this.socket = new WebSocket("ws://"+ip+":14711");
             this.socket.onopen = function() {                
+                console.log("opened");
                 resolve();
             };
             server.onerror = function(err) {
