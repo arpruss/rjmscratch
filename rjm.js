@@ -1,12 +1,49 @@
 // https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
 //  https://sheeptester.github.io/scratch-gui/?url=https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
 
+class Turtle {
+    constructor(yaw) {
+        block = "1";
+        this.nib = [[0,0,0]];
+        this.pos = [0,0,0];
+        this.matrix = yawMatrix(yaw);
+    }
+    
+    mmMultiply(a,b) {
+        var c = [[0,0,0],[0,0,0],[0,0,0]];
+        for (var i = 0; i < 3 ; i++) for (var j = 0; j < 3 ; j++)
+          c[i][j] = a[i][0]*b[0][j] + a[i][1]*b[1][j] + a[i][2]*b[2][j];
+        return c;
+    };
+    
+    yawMatrix(angleDegrees) {
+        var theta = angleDegrees * MCPI.TO_RADIANS;
+        return [[Math.cos(theta), 0., -Math.sin(theta)],
+                [0.,         1., 0.],
+                [Math.sin(theta), 0., Math.cos(theta)]];
+    };
+    
+    rollMatrix(angleDegrees) {
+        var theta = angleDegrees * MCPI.TO_RADIANS;
+        return [[Math.cos(theta), -Math.sin(theta), 0.],
+                [Math.sin(theta), Math.cos(theta),0.],
+                [0.,          0.,          1.]];
+    };
+    
+    pitchMatrix(angleDegrees) {
+        var theta = angleDegrees * MCPI.TO_RADIANS;
+        return [[1.,          0.,          0.],
+                [0., Math.cos(theta),Math.sin(theta)],
+                [0., -Math.sin(theta),Math.cos(theta)]];
+    };
+    
+}
+
 class RaspberryJamMod {
     constructor() {
         this.TO_RADIANS = Math.PI / 180;
-        this.block = "1";
+        this.turtle = new Turtle();
         this.penDown = true;
-        this.nib = [[0,0,0]];
         this.socket = null;
     }
     
@@ -73,7 +110,6 @@ class RaspberryJamMod {
     
     sendAndReceive(msg) {
         var rjm = this;
-        console.log("sAR"+msg);
         return new Promise(function(resolve, reject) {            
             rjm.socket.onmessage = function(event) {
                 resolve(event.data.trim());
@@ -116,49 +152,19 @@ class RaspberryJamMod {
                 reject(err);
             };
         }).then(result => rjm.getPosition().then( result => {
-            rjm.playerX = result[0];
-            rjm.playerY = result[1];
-            rjm.playerZ = result[2];
-            console.log("player position "+rjm.playerX+" "+rjm.playerY+" "+rjm.playerZ);
+            rjm.playerPos = result;
+            rjm.turtle.pos = result;
+            console.log("player position "+rjm.playerPos);
         })).then (result => rjm.getRotation().then( result => {
-            rjm.rotationX = result[0];
-            rjm.rotationY = result[0];
-            rjm.rotationZ = result[0];
-            console.log("player rotation "+rjm.rotationX+" "+rjm.rotationY+" "+rjm.rotationZ);
+            rjm.playerRot = result;
+            rjm.turtle = new Turtle(result[1]);
+            console.log("player rotation "+rjm.playerRot);
         }));
     };
     
     chat({msg}){
         this.socket.send("chat.post("+msg+")");
         console.log("chat: "+msg);
-    };
-    
-    mmMultiply(a,b) {
-        var c = [[0,0,0],[0,0,0],[0,0,0]];
-        for (var i = 0; i < 3 ; i++) for (var j = 0; j < 3 ; j++)
-          c[i][j] = a[i][0]*b[0][j] + a[i][1]*b[1][j] + a[i][2]*b[2][j];
-        return c;
-    };
-    
-    yawMatrix(angleDegrees) {
-        var theta = angleDegrees * MCPI.TO_RADIANS;
-        return [[Math.cos(theta), 0., -Math.sin(theta)],
-                [0.,         1., 0.],
-                [Math.sin(theta), 0., Math.cos(theta)]];
-    };
-    
-    rollMatrix(angleDegrees) {
-        var theta = angleDegrees * MCPI.TO_RADIANS;
-        return [[Math.cos(theta), -Math.sin(theta), 0.],
-                [Math.sin(theta), Math.cos(theta),0.],
-                [0.,          0.,          1.]];
-    };
-    
-    pitchMatrix(angleDegrees) {
-        var theta = angleDegrees * MCPI.TO_RADIANS;
-        return [[1.,          0.,          0.],
-                [0., Math.cos(theta),Math.sin(theta)],
-                [0., -Math.sin(theta),Math.cos(theta)]];
     };
     
     getLine(x1,y1,z1,x2,y2,z2) {
