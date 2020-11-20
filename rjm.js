@@ -71,7 +71,6 @@ class RaspberryJamMod {
         this.socket = new WebSocket("ws://"+ip+":14711");
     };
     
-    /*
     sendAndReceive(msg) {
         return new Promise(function(resolve, reject) {            
             this.socket.onmessage = function(event) {
@@ -99,7 +98,8 @@ class RaspberryJamMod {
                 return [parseFloat(p[0]),parseFloat(p[1]),parseFloat(p[2])];
             });
     };
-    
+
+/*    
     connect_p({ip}){
         this.ip = ip;
         console.log("connecting to "+ip);
@@ -117,7 +117,7 @@ class RaspberryJamMod {
           .then(getRotation())
           .then(result => { console.log("rotation "+result); });
     };
-    */
+*/    
     
     chat({msg}){
         this.socket.send("chat.post("+msg+")");
