@@ -3,7 +3,7 @@
 
 class RJMTurtle {
     constructor() {
-        block = "1";
+        this.block = "1";
         this.nib = [[0,0,0]];
         this.pos = [0,0,0];
         this.penDown = true;
@@ -43,7 +43,7 @@ class RJMTurtle {
 class RaspberryJamMod {
     constructor() {
         this.socket = null;
-        //this.turtle = new RJMTurtle();
+        this.turtle = new RJMTurtle();
     }
     
     getInfo() {
