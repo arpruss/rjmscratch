@@ -66,7 +66,7 @@ class RaspberryJamMod {
             "blocks": [{
                     "opcode": "connect_p",
                     "blockType": "command",
-                    "text": "connect to [ip]",
+                    "text": "connect to Minecraft on [ip]",
                     "arguments": {
                         "ip": {
                             "type": "string",
@@ -92,7 +92,7 @@ class RaspberryJamMod {
                     "arguments": {
                         "name": {
                             "type": "string",
-                            "defaultValue": "1",
+                            "defaultValue": "1,0",
                             "menu": "blockMenu"
                         }
                     }
@@ -115,32 +115,83 @@ class RaspberryJamMod {
                             "defaultValue": "0"
                         },
                     }
-            },            
+            },             
+/*            {
+                    "opcode": "haveBlock",
+                    "blockType": "Boolean",
+                    "text": "have [b] at ([x],[y],[z])",
+                    "arguments": {
+                        "b": {
+                            "type": "string",
+                            "defaultValue": "1,0",
+                            "menu": "blockMenu"
+                        },
+                        "x": {
+                            "type": "number",
+                            "defaultValue": "0"
+                        },
+                        "y": {
+                            "type": "number",
+                            "defaultValue": "0"
+                        },
+                        "z": {
+                            "type": "number",
+                            "defaultValue": "0"
+                        },
+                    }
+            },             */
+            {
+                    "opcode": "onBlock",
+                    "blockType": "Boolean",
+                    "text": "player on [b]",
+                    "arguments": {
+                        "b": {
+                            "type": "string",
+                            "defaultValue": "0,0",
+                            "menu": "blockMenu"
+                        },
+                    }
+            },
             {
                     "opcode": "getPlayerX",
                     "blockType": "reporter",
-                    "text": "player x position",
+                    "text": "player x [mode] position",
                     "arguments": {
+                        "mode": {
+                            "type": "number",
+                            "defaultValue": 0,
+                            "menu": "modeMenu"
+                        },
                     }
             },            
             {
                     "opcode": "getPlayerY",
                     "blockType": "reporter",
-                    "text": "player y position",
+                    "text": "player y [mode] position",
                     "arguments": {
+                        "mode": {
+                            "type": "number",
+                            "defaultValue": 0,
+                            "menu": "modeMenu"
+                        },
                     }
             },            
             {
                     "opcode": "getPlayerZ",
                     "blockType": "reporter",
-                    "text": "player z position",
+                    "text": "player z [mode] position",
                     "arguments": {
+                        "mode": {
+                            "type": "number",
+                            "defaultValue": 0,
+                            "menu": "modeMenu"
+                        },
                     }
             },            
             {
-                    "opcode": "setBlockEasy",
+                    "opcode": "setBlock",
                     "blockType": "command",
-                    "text": "put block [b] at ([x],[y],[z])",
+                    "text": "put [b] at ([x],[y],[z])",
                     "arguments": {
                         "x": {
                             "type": "number",
@@ -156,12 +207,12 @@ class RaspberryJamMod {
                         },
                         "b": {
                             "type": "string",
-                            "defaultValue": "1",
+                            "defaultValue": "1,0",
                             "menu": "blockMenu"
                         },
                     }
             },            
-            {
+/*            {
                     "opcode": "setBlock",
                     "blockType": "command",
                     "text": "put block with id [b] at ([x],[y],[z])",
@@ -180,10 +231,10 @@ class RaspberryJamMod {
                         },
                         "b": {
                             "type": "string",
-                            "defaultValue": "1"
+                            "defaultValue": "1,0"
                         },
                     }
-            },            
+            },       */      
             {
                     "opcode": "setPlayerPos",
                     "blockType": "command",
@@ -221,7 +272,31 @@ class RaspberryJamMod {
                             "defaultValue": 0
                         },
                     }
-            },            
+            },         
+            {
+                    "opcode": "spawnEntity",
+                    "blockType": "command",
+                    "text": "spawn [entity] at ([x],[y],[z])",
+                    "arguments": {
+                        "entity": {
+                            "type": "string",
+                            "defaultValue": "Villager",
+                            "menu": "entityMenu"
+                        },
+                        "x": {
+                            "type": "number",
+                            "defaultValue": 0
+                        },
+                        "y": {
+                            "type": "number",
+                            "defaultValue": 0
+                        },
+                        "z": {
+                            "type": "number",
+                            "defaultValue": 0
+                        },
+                    }
+            },
             {
                     "opcode": "moveTurtle",
                     "blockType": "command",
@@ -289,28 +364,28 @@ class RaspberryJamMod {
                     }
             },            
             {
-                    "opcode": "turtleBlockEasy",
+                    "opcode": "turtleBlock",
                     "blockType": "command",
                     "text": "turtle pen block [b]",
                     "arguments": {
                         "b": {
                             "type": "string",
-                            "defaultValue": "1",
+                            "defaultValue": "1,0",
                             "menu": "blockMenu"
                         }
                     }
             },            
-            {
+/*            {
                     "opcode": "turtleBlock",
                     "blockType": "command",
                     "text": "turtle pen block with id [b]",
                     "arguments": {
                         "b": {
                             "type": "string",
-                            "defaultValue": "1",
+                            "defaultValue": "1,0",
                         }
                     }
-            },            
+            },             */
             {
                     "opcode": "turtleThickness",
                     "blockType": "command",
@@ -353,13 +428,76 @@ class RaspberryJamMod {
             penMenu: [{text:"down",value:1}, {text:"up",value:0}],
             coordinateMenu: [{text:"x",value:0}, {text:"y",value:1}, {text:"z",value:2}],
             turnMenu: [ "yaw", "pitch", "roll" ],
-            blockMenu: [
-                {text:"air",value:"0"},
-                {text:"bed",value:"26"},
-                {text:"bedrock",value:"7"},
-                {text:"bookshelf",value:"47"},
-                {text:"brick block",value:"45"},
-                {text:"cactus",value:"81"},
+            modeMenu: [{text:"exact",value:1},{text:"block",value:0}],
+            entityMenu: ["Item",
+                "XPOrb",
+                "LeashKnot",
+                "Painting",
+                "Arrow",
+                "Snowball",
+                "Fireball",
+                "SmallFireball",
+                "ThrownEnderpearl",
+                "EyeOfEnderSignal",
+                "ThrownPotion",
+                "ThrownExpBottle",
+                "ItemFrame",
+                "WitherSkull",
+                "PrimedTnt",
+                "FallingSand",
+                "FireworksRocketEntity",
+                "ArmorStand",
+                "Boat",
+                "MinecartRideable",
+                "MinecartChest",
+                "MinecartFurnace",
+                "MinecartTNT",
+                "MinecartHopper",
+                "MinecartSpawner",
+                "MinecartCommandBlock",
+                "Mob",
+                "Monster",
+                "Creeper",
+                "Skeleton",
+                "Spider",
+                "Giant",
+                "Zombie",
+                "Slime",
+                "Ghast",
+                "PigZombie",
+                "Enderman",
+                "CaveSpider",
+                "Silverfish",
+                "Blaze",
+                "LavaSlime",
+                "EnderDragon",
+                "WitherBoss",
+                "Bat",
+                "Witch",
+                "Endermite",
+                "Guardian",
+                "Pig",
+                "Sheep",
+                "Cow",
+                "Chicken",
+                "Squid",
+                "Wolf",
+                "MushroomCow",
+                "SnowMan",
+                "Ozelot",
+                "VillagerGolem",
+                "EntityHorse",
+                "Rabbit",
+                "Villager",
+                "EnderCrystal",],
+            blockMenu: { acceptReporters: true,
+                items: [
+                {text:"air",value:"0,0"},
+                {text:"bed",value:"26,0"},
+                {text:"bedrock",value:"7,0"},
+                {text:"bookshelf",value:"47,0"},
+                {text:"brick block",value:"45,0"},
+                {text:"cactus",value:"81,0"},
                 {text:"carpet black",value:"171,15"},
                 {text:"carpet blue",value:"171,11"},
                 {text:"carpet brown",value:"171,12"},
@@ -376,35 +514,35 @@ class RaspberryJamMod {
                 {text:"carpet red",value:"171,14"},
                 {text:"carpet white",value:"171"},
                 {text:"carpet yellow",value:"171,4"},
-                {text:"chest",value:"54"},
-                {text:"clay",value:"82"},
-                {text:"coal block",value:"173"},
-                {text:"coal ore",value:"16"},
-                {text:"cobblestone",value:"4"},
-                {text:"cobweb",value:"30"},
-                {text:"crafting table",value:"58"},
-                {text:"diamond block",value:"57"},
-                {text:"diamond ore",value:"56"},
-                {text:"dirt",value:"3"},
-                {text:"door iron",value:"71"},
-                {text:"door wood",value:"64"},
+                {text:"chest",value:"54,0"},
+                {text:"clay",value:"82,0"},
+                {text:"coal block",value:"173,0"},
+                {text:"coal ore",value:"16,0"},
+                {text:"cobblestone",value:"4,0"},
+                {text:"cobweb",value:"30,0"},
+                {text:"crafting table",value:"58,0"},
+                {text:"diamond block",value:"57,0"},
+                {text:"diamond ore",value:"56,0"},
+                {text:"dirt",value:"3,0"},
+                {text:"door iron",value:"71,0"},
+                {text:"door wood",value:"64,0"},
                 {text:"double tallgrass",value:"175,2"},
-                {text:"farmland",value:"60"},
-                {text:"fence gate",value:"107"},
-                {text:"fence",value:"85"},
-                {text:"fire",value:"51"},
-                {text:"flower cyan",value:"38"},
-                {text:"flower yellow",value:"37"},
-                {text:"furnace active",value:"62"},
-                {text:"furnace inactive",value:"61"},
-                {text:"glass pane",value:"102"},
-                {text:"glass",value:"20"},
-                {text:"glowstone block",value:"89"},
-                {text:"gold block",value:"41"},
-                {text:"gold ore",value:"14"},
-                {text:"grass tall",value:"31"},
-                {text:"grass",value:"2"},
-                {text:"gravel",value:"13"},
+                {text:"farmland",value:"60,0"},
+                {text:"fence gate",value:"107,0"},
+                {text:"fence",value:"85,0"},
+                {text:"fire",value:"51,0"},
+                {text:"flower cyan",value:"38,0"},
+                {text:"flower yellow",value:"37,0"},
+                {text:"furnace active",value:"62,0"},
+                {text:"furnace inactive",value:"61,0"},
+                {text:"glass pane",value:"102,0"},
+                {text:"glass",value:"20,0"},
+                {text:"glowstone block",value:"89,0"},
+                {text:"gold block",value:"41,0"},
+                {text:"gold ore",value:"14,0"},
+                {text:"grass tall",value:"31,0"},
+                {text:"grass",value:"2,0"},
+                {text:"gravel",value:"13,0"},
                 {text:"hardened clay stained black",value:"159,15"},
                 {text:"hardened clay stained blue",value:"159,11"},
                 {text:"hardened clay stained brown",value:"159,12"},
@@ -419,41 +557,41 @@ class RaspberryJamMod {
                 {text:"hardened clay stained pink",value:"159,6"},
                 {text:"hardened clay stained purple",value:"159,10"},
                 {text:"hardened clay stained red",value:"159,14"},
-                {text:"hardened clay stained white",value:"159"},
+                {text:"hardened clay stained white",value:"159,0"},
                 {text:"hardened clay stained yellow",value:"159,4"},
-                {text:"ice",value:"79"},
-                {text:"iron block",value:"42"},
-                {text:"iron ore",value:"15"},
-                {text:"ladder",value:"65"},
-                {text:"lapis lazuli block",value:"22"},
-                {text:"lapis lazuli ore",value:"21"},
+                {text:"ice",value:"79,0"},
+                {text:"iron block",value:"42,0"},
+                {text:"iron ore",value:"15,0"},
+                {text:"ladder",value:"65,0"},
+                {text:"lapis lazuli block",value:"22,0"},
+                {text:"lapis lazuli ore",value:"21,0"},
                 {text:"large fern",value:"175,3"},
-                {text:"lava flowing",value:"10"},
-                {text:"lava stationary",value:"11"},
+                {text:"lava flowing",value:"10,0"},
+                {text:"lava stationary",value:"11,0"},
                 {text:"leaves birch",value:"18,6"},
                 {text:"leaves jungle",value:"18,7"},
                 {text:"leaves oak",value:"18,4"},
                 {text:"leaves spruce",value:"18,5"},
-                {text:"leaves",value:"18"},
+                {text:"leaves",value:"18,0"},
                 {text:"lilac",value:"175,1"},
-                {text:"melon",value:"103"},
-                {text:"moss stone",value:"48"},
-                {text:"mushroom brown",value:"39"},
-                {text:"mushroom red",value:"40"},
-                {text:"obsidian",value:"49"},
+                {text:"melon",value:"103,0"},
+                {text:"moss stone",value:"48,0"},
+                {text:"mushroom brown",value:"39,0"},
+                {text:"mushroom red",value:"40,0"},
+                {text:"obsidian",value:"49,0"},
                 {text:"peony",value:"175,5"},
-                {text:"quartz block",value:"155"},
-                {text:"redstone block",value:"152"},
-                {text:"redstone lamp active",value:"124"},
-                {text:"redstone lamp inactive",value:"123"},
-                {text:"redstone ore",value:"73"},
+                {text:"quartz block",value:"155,0"},
+                {text:"redstone block",value:"152,0"},
+                {text:"redstone lamp active",value:"124,0"},
+                {text:"redstone lamp inactive",value:"123,0"},
+                {text:"redstone ore",value:"73,0"},
                 {text:"rose bush",value:"175,4"},
-                {text:"sand",value:"12"},
-                {text:"sandstone",value:"24"},
-                {text:"sapling",value:"6"},
-                {text:"sea lantern",value:"169"},
-                {text:"snow block",value:"80"},
-                {text:"snow",value:"78"},
+                {text:"sand",value:"12,0"},
+                {text:"sandstone",value:"24,0"},
+                {text:"sapling",value:"6,0"},
+                {text:"sea lantern",value:"169,0"},
+                {text:"snow block",value:"80,0"},
+                {text:"snow",value:"78,0"},
                 {text:"stained glass black",value:"95,15"},
                 {text:"stained glass blue",value:"95,11"},
                 {text:"stained glass brown",value:"95,12"},
@@ -468,24 +606,24 @@ class RaspberryJamMod {
                 {text:"stained glass pink",value:"95,6"},
                 {text:"stained glass purple",value:"95,10"},
                 {text:"stained glass red",value:"95,14"},
-                {text:"stained glass white",value:"95"},
+                {text:"stained glass white",value:"95,0"},
                 {text:"stained glass yellow",value:"95,4"},
-                {text:"stairs cobblestone",value:"67"},
-                {text:"stairs wood",value:"53"},
-                {text:"stone brick",value:"98"},
-                {text:"stone button",value:"77"},
-                {text:"stone slab double",value:"43"},
-                {text:"stone slab",value:"44"},
-                {text:"stone",value:"1"},
-                {text:"sugar cane",value:"83"},
-                {text:"sunflower",value:"175"},
-                {text:"TNT",value:"46"},
-                {text:"torch",value:"50"},
-                {text:"water flowing",value:"8"},
-                {text:"water stationary",value:"9"},
-                {text:"wood button",value:"143"},
-                {text:"wood planks",value:"5"},
-                {text:"wood",value:"17"},
+                {text:"stairs cobblestone",value:"67,0"},
+                {text:"stairs wood",value:"53,0"},
+                {text:"stone brick",value:"98,0"},
+                {text:"stone button",value:"77,0"},
+                {text:"stone slab double",value:"43,0"},
+                {text:"stone slab",value:"44,0"},
+                {text:"stone",value:"1,0"},
+                {text:"sugar cane",value:"83,0"},
+                {text:"sunflower",value:"175,0"},
+                {text:"TNT",value:"46,0"},
+                {text:"torch",value:"50,0"},
+                {text:"water flowing",value:"8,0"},
+                {text:"water stationary",value:"9,0"},
+                {text:"wood button",value:"143,0"},
+                {text:"wood planks",value:"5,0"},
+                {text:"wood",value:"17,0"},
                 {text:"wool black",value:"35,15"},
                 {text:"wool blue",value:"35,11"},
                 {text:"wool brown",value:"35,12"},
@@ -500,9 +638,10 @@ class RaspberryJamMod {
                 {text:"wool pink",value:"35,6"},
                 {text:"wool purple",value:"35,10"},
                 {text:"wool red",value:"35,14"},
-                {text:"wool white",value:"35"},
+                {text:"wool white",value:"35,0"},
                 {text:"wool yellow",value:"35,4"}
             ]            
+            }
             }
         };
     };
@@ -514,7 +653,6 @@ class RaspberryJamMod {
     };
     
     blockByName({name}){
-        console.log("name "+name);
         return name;
     }
     
@@ -527,7 +665,6 @@ class RaspberryJamMod {
             rjm.socket.onerror = function(err) {
                 reject(err);
             };
-            console.log("sending "+msg);
             rjm.socket.send(msg);
         });
     };
@@ -607,7 +744,6 @@ class RaspberryJamMod {
     }
     
     restoreTurtle() {
-        console.log(this.turtleHistory[0]);
         if (this.turtleHistory.length > 0) {
             this.turtle = this.turtleHistory.pop();
         }
@@ -633,7 +769,6 @@ class RaspberryJamMod {
     };
 
     moveTurtle({dir,n}) {
-        console.log("move "+dir+" "+n);
         n *= dir;
         var newX = this.turtle.pos[0] + this.turtle.matrix[0][2] * n;
         var newY = this.turtle.pos[1] + this.turtle.matrix[1][2] * n;
@@ -651,8 +786,12 @@ class RaspberryJamMod {
             });
     };
 
+    spawnEntity({entity,x,y,z}) {
+        return this.sendAndReceive("world.spawnEntity("+entity+","+x+","+y+","+z+")"); // TODO: do something with entity ID
+    };
+
     movePlayer({dx,dy,dz}) {
-        return this.getPosition().then(pos => setPlayerPos({x:pos[0]+dx,y:pos[1]+dy,z:pos[2]+dz}));
+        return this.getPosition().then(pos => this.setPlayerPos({x:pos[0]+dx,y:pos[1]+dy,z:pos[2]+dz}));
     };
 
     
@@ -666,34 +805,43 @@ class RaspberryJamMod {
     getBlock({x,y,z}) {
         return this.sendAndReceive("world.getBlockWithData("+Math.floor(x)+","+Math.floor(y)+","+Math.floor(z)+")")
             .then(b => {
-                console.log("block "+b);
                 return b;
             });
     };
 
-    getPlayerX() {
-        return this.getPosition()
-            .then(pos => pos[0]);
+    onBlock({b}) {
+        return this.getPosition().then( pos => this.sendAndReceive("world.getBlockWithData("+Math.floor(pos[0])+","+Math.floor(pos[1]-1)+","+Math.floor(pos[2])+")")
+                    .then( block => block == b ) );
+    }
+
+    haveBlock({b,x,y,z}) {
+        return this.sendAndReceive("world.getBlockWithData("+Math.floor(x)+","+Math.floor(y)+","+Math.floor(z)+")")
+            .then(block => {
+                return block == b;
+            });
     };
 
-    getPlayerY() {
+    getPlayerX({mode}) {
         return this.getPosition()
-            .then(pos => pos[1]);
+            .then(pos => mode ? pos[0] : Math.floor(pos[0]));
     };
 
-    getPlayerZ() {
+    getPlayerY({mode}) {
         return this.getPosition()
-            .then(pos => pos[2]);
+            .then(pos => mode ? pos[1] : Math.floor(pos[1]));
+    };
+
+    getPlayerZ({mode}) {
+        return this.getPosition()
+            .then(pos => mode ? pos[2] : Math.floor(pos[2]));
     };
 
     connect_p({ip}){
         this.ip = ip;
-        console.log("connecting to "+ip);
         var rjm = this;
         return new Promise(function(resolve, reject) {            
             rjm.socket = new WebSocket("ws://"+ip+":14711");
             rjm.socket.onopen = function() {                
-                console.log("opened");
                 resolve();
             };
             rjm.socket.onerror = function(err) {
@@ -712,7 +860,6 @@ class RaspberryJamMod {
     
     chat({msg}){
         this.socket.send("chat.post("+msg+")");
-        console.log("chat: "+msg);
     };
     
     getLine(x1,y1,z1,x2,y2,z2) {
@@ -810,10 +957,6 @@ class RaspberryJamMod {
       } */
       this.socket.send("world.setBlock("+x+","+y+","+z+","+b+")");
     };
-
-    setBlockEasy(args) {
-        setBlock(args);
-    }
 
     setPlayerPos({x,y,z}) {
       this.socket.send("player.setPos("+x+","+y+","+z+")");
