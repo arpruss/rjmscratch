@@ -801,7 +801,7 @@ class RaspberryJamMod {
         return this.getPosition().then(pos => this.setPlayerPos({x:pos[0]+dx,y:pos[1]+dy,z:pos[2]+dz}));
     };
 
-    movePlayerToTop() {
+    movePlayerTop() {
         return this.getPosition().then(pos => 
             this.sendAndReceive("world.getHeight("+Math.floor(pos[0])+","+Math.floor(pos[2])+")").then(
                 height => this.setPlayerPos({x:pos[0],y:height,z:pos[2]})));
