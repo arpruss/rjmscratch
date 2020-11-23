@@ -901,9 +901,9 @@ class RaspberryJamMod {
         
         var draw = function(x,y,z) {
             for (var i=0; i<nib.length; i++) {
-                nx = x + nib[i][0];
-                ny = y + nib[i][1];
-                nz = z + nib[i][2];
+                var nx = x + nib[i][0];
+                var ny = y + nib[i][1];
+                var nz = z + nib[i][2];
                 var j;
                 for (j=0; j<line.length; j++) {
                     if (line[j][0] == nx && line[j][1] == ny && line[j][2] == nz)
