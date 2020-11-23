@@ -52,8 +52,15 @@ class RJMTurtle {
 }
 
 class RaspberryJamMod {
-    varructor() {
+    constructor() {
+        clear();
+    }
+    
+    clear() {
         this.socket = null;
+        this.hits = [];
+        this.turtle = new RJMTurtle();
+        this.turtleHistory = [];
     }
     
     getInfo() {
@@ -196,6 +203,13 @@ class RaspberryJamMod {
                             "defaultValue": 0,
                             "menu": "modeMenu"
                         },
+                    }
+            },            
+            {
+                    "opcode": "getHit",
+                    "blockType": "reporter",
+                    "text": "sword hit vector position",
+                    "arguments": {
                     }
             },            
             {
@@ -894,6 +908,23 @@ class RaspberryJamMod {
         return this.getPosition()
             .then(pos => mode != 0 ? ""+pos[0]+","+pos[1]+","+pos[2] : ""+Math.floor(pos[0])+","+Math.floor(pos[1])+","+Math.floor(pos[2]));
     };
+    
+    getHit() {
+        if (this.hits.length>0) 
+            return ""+this.hits.pop().slice(0,3);
+        var rjm = this;
+        return this.sendAndReceive("event.block.hits()")
+            .then(result => {
+                if (hits.indexOf(",") < 0) {
+                    return "";
+                }
+                else {
+                    var hits = result.split("|");
+                    for(var i=0;i<hits.length;i++)
+                        rjm.hits.push(hits[i].split(",").map(parseFloat));
+                }
+            });
+    };
 
     extractFromVector({vector,coordinate}) {
         var v = vector.split(",");
@@ -926,6 +957,7 @@ class RaspberryJamMod {
         return new Promise(function(resolve, reject) {
             if (rjm.socket != null)
                 rjm.socket.close();
+            rjm.clear();
             rjm.socket = new WebSocket("ws://"+ip+":14711");
             rjm.socket.onopen = function() {                
                 resolve();
@@ -934,8 +966,6 @@ class RaspberryJamMod {
                 reject(err);
             };
         }).then(result => rjm.getPosition().then( result => {
-            rjm.turtle = new RJMTurtle();
-            rjm.turtleHistory = [];
             rjm.turtle.pos = result;
         })).then (result => rjm.getRotation().then( result => {
             rjm.playerRot = result;
