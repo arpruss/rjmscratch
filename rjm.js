@@ -897,7 +897,7 @@ class RaspberryJamMod {
         var dy2 = m * 2;
         var dz2 = n * 2;
         
-        draw = function(x,y,z) {
+        var draw = function(x,y,z) {
             for (var i=0; i<this.turtle.nib.length; i++) {
                 nx = x + this.turtle.nib[i][0];
                 ny = y + this.turtle.nib[i][1];
