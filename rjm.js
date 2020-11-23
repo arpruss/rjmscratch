@@ -53,7 +53,7 @@ class RJMTurtle {
 
 class RaspberryJamMod {
     constructor() {
-        clear();
+        this.clear();
     }
     
     clear() {
