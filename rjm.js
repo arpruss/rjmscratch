@@ -850,7 +850,7 @@ class RaspberryJamMod {
     };
 
     getPlayerX({mode}) {
-        console.log("x mode "+mode);
+        console.log("x mode "+mode+ " "+(mode !=0));
         return this.getPosition()
             .then(pos => mode != 0 ? pos[0] : Math.floor(pos[0]));
     };
