@@ -3,7 +3,6 @@
 
 class RJMTurtle {
     constructor() {
-        this.defaults();
         this.block = "1";
         this.nib = [[0,0,0]];
         this.pos = [0,0,0];
