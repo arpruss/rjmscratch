@@ -897,11 +897,13 @@ class RaspberryJamMod {
         var dy2 = m * 2;
         var dz2 = n * 2;
         
+        var nib = this.turtle.nib;
+        
         var draw = function(x,y,z) {
-            for (var i=0; i<this.turtle.nib.length; i++) {
-                nx = x + this.turtle.nib[i][0];
-                ny = y + this.turtle.nib[i][1];
-                nz = z + this.turtle.nib[i][2];
+            for (var i=0; i<nib.length; i++) {
+                nx = x + nib[i][0];
+                ny = y + nib[i][1];
+                nz = z + nib[i][2];
                 var j;
                 for (j=0; j<line.length; j++) {
                     if (line[j][0] == nx && line[j][1] == ny && line[j][2] == nz)
