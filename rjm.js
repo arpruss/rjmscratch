@@ -852,17 +852,17 @@ class RaspberryJamMod {
     getPlayerX({mode}) {
         console.log("x mode "+mode);
         return this.getPosition()
-            .then(pos => mode ? pos[0] : Math.floor(pos[0]));
+            .then(pos => mode != 0 ? pos[0] : Math.floor(pos[0]));
     };
 
     getPlayerY({mode}) {
         return this.getPosition()
-            .then(pos => mode ? pos[1] : Math.floor(pos[1]));
+            .then(pos => mode != 0 ? pos[1] : Math.floor(pos[1]));
     };
 
     getPlayerZ({mode}) {
         return this.getPosition()
-            .then(pos => mode ? pos[2] : Math.floor(pos[2]));
+            .then(pos => mode != 0 ? pos[2] : Math.floor(pos[2]));
     };
 
     connect_p({ip}){
