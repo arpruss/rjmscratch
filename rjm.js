@@ -186,7 +186,6 @@ class RaspberryJamMod {
                         },
                     }
             },
-            /*
             {
                     "opcode": "getPlayerVector",
                     "blockType": "reporter",
@@ -210,7 +209,7 @@ class RaspberryJamMod {
                             "menu": "coordinateMenu"
                         },
                     }
-            }, */            
+            },          
             {
                     "opcode": "setBlock",
                     "blockType": "command",
