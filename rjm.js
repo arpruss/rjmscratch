@@ -678,8 +678,9 @@ class RaspberryJamMod {
 
     drawLine(x1,y1,z1,x2,y2,z2) {
         var l = this.getLine(x1,y1,z1,x2,y2,z2);
+        
         for (var i=0; i<l.length ; i++) {
-            this.drawPoint(l[i][0],l[i][1],l[i][2]);
+            this.setBlock({x:l[i][0],y:l[i][1],z:l[i][2],b:this.turtle.block});
         }
     };
     
@@ -895,12 +896,28 @@ class RaspberryJamMod {
         var dx2 = l * 2;
         var dy2 = m * 2;
         var dz2 = n * 2;
+        
+        draw = function(x,y,z) {
+            for (var i=0; i<this.turtle.nib.length; i++) {
+                nx = x + this.turtle.nib[i][0];
+                ny = y + this.turtle.nib[i][1];
+                nz = z + this.turtle.nib[i][2];
+                var j;
+                for (j=0; j<line.length; j++) {
+                    if (line[j][0] == nx && line[j][1] == ny && line[j][2] == nz)
+                        break;
+                }
+                if (j<line.length)
+                    continue;
+                line.push([nx,ny,nz]);
+            }
+        };
 
         if (l >= m && l >= n) {
             var err_1 = dy2 - l;
             var err_2 = dz2 - l;
             for (var i=0; i<l; i++) {
-                line.push([point[0],point[1],point[2]]);
+                draw(point[0],point[1],point[2]);
                 if (err_1 > 0) {
                     point[1] += y_inc;
                     err_1 -= dx2;
@@ -918,7 +935,7 @@ class RaspberryJamMod {
             err_1 = dx2 - m;
             err_2 = dz2 - m;
             for (var i=0; i<m; i++) {
-                line.push([point[0],point[1],point[2]]);
+                draw(point[0],point[1],point[2]);
                 if (err_1 > 0) {
                     point[0] += x_inc;
                     err_1 -= dy2;
@@ -936,7 +953,7 @@ class RaspberryJamMod {
             err_1 = dy2 - n;
             err_2 = dx2 - n;
             for (var i=0; i < n; i++) {
-                line.push([point[0],point[1],point[2]]);
+                draw(point[0],point[1],point[2]);
                 if (err_1 > 0) {
                     point[1] += y_inc;
                     err_1 -= dz2;
@@ -950,9 +967,9 @@ class RaspberryJamMod {
                 point[2] += z_inc;
             }
         }
-        line.push([point[0],point[1],point[2]]);
+        draw(point[0],point[1],point[2]);
         if (point[0] != x2 || point[1] != y2 || point[2] != z2) {
-            line.push([x2,y2,z2]);
+            draw(x2,y2,z2);
         }
         return line;
     };
