@@ -784,7 +784,7 @@ class RaspberryJamMod {
     }
     
     setTurtlePosition({x,y,z}) {
-        this.turtle.pos = parseXYZ(x,y,z);
+        this.turtle.pos = this.parseXYZ(x,y,z);
     }
     
     turtleThickness({n}) {
@@ -862,7 +862,7 @@ class RaspberryJamMod {
     };
 
     spawnEntity({entity,x,y,z}) {
-        var [x,y,z] = parseXYZ(x,y,z);
+        var [x,y,z] = this.parseXYZ(x,y,z);
         return this.sendAndReceive("world.spawnEntity("+entity+","+x+","+y+","+z+")"); // TODO: do something with entity ID
     };
 
@@ -884,7 +884,7 @@ class RaspberryJamMod {
     };
     
     getBlock({x,y,z}) {
-        var [x,y,z] = parseXYZ(x,y,z).map(Math.floor);
+        var [x,y,z] = this.parseXYZ(x,y,z).map(Math.floor);
         return this.sendAndReceive("world.getBlockWithData("+x+","+y+","+z+")")
             .then(b => {
                 return b;
@@ -897,7 +897,7 @@ class RaspberryJamMod {
     }
 
     haveBlock({b,x,y,z}) {
-        var [x,y,z] = parseXYZ(x,y,z).map(Math.floor);
+        var [x,y,z] = this.parseXYZ(x,y,z).map(Math.floor);
         return this.sendAndReceive("world.getBlockWithData("+x+","+y+","+z+")")
             .then(block => {
                 return block == b;
@@ -1080,12 +1080,12 @@ class RaspberryJamMod {
     };
     
     setBlock({x,y,z,b}) {
-      var [x,y,z] = parseXYZ(x,y,z).map(Math.floor);
+      var [x,y,z] = this.parseXYZ(x,y,z).map(Math.floor);
       this.socket.send("world.setBlock("+x+","+y+","+z+","+b+")");
     };
 
     setPlayerPos({x,y,z}) {
-      var [x,y,z] = parseXYZ(x,y,z);
+      var [x,y,z] = this.parseXYZ(x,y,z);
       this.socket.send("player.setPos("+x+","+y+","+z+")");
     };
 }
