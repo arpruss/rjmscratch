@@ -3,6 +3,7 @@
 
 class RJMTurtle {
     constructor() {
+        this.defaults();
         this.block = "1";
         this.nib = [[0,0,0]];
         this.pos = [0,0,0];
@@ -54,8 +55,6 @@ class RJMTurtle {
 class RaspberryJamMod {
     constructor() {
         this.socket = null;
-        this.turtle = new RJMTurtle();
-        this.turtleHistory = [];
     }
     
     getInfo() {
@@ -861,13 +860,12 @@ class RaspberryJamMod {
                 reject(err);
             };
         }).then(result => rjm.getPosition().then( result => {
-            rjm.playerPos = result;
+            rjm.turtle = new RJMTurtle();
+            rjm.turtleHistory = [];
             rjm.turtle.pos = result;
-            console.log("player position "+rjm.playerPos);
         })).then (result => rjm.getRotation().then( result => {
             rjm.playerRot = result;
             rjm.turtle.matrix = rjm.turtle.yawMatrix(Math.floor(0.5+result/90)*90);
-            console.log("player rotation "+rjm.playerRot);
         }));
     };
     
@@ -980,12 +978,6 @@ class RaspberryJamMod {
       x = Math.floor(x);
       y = Math.floor(y);
       z = Math.floor(z);
-      /*
-      if (b != "0" && x == Math.floor(this.playerPos[0]) && z == Math.floor(this.playerPos[2]) && 
-            y == Math.floor(this.playerPos[1])+1) {
-                this.playerPos[1]++; 
-                this.socket.send("player.setPos("+this.playerPos[0]+","+this.playerPos[1]+","+this.playerPos[2]);
-      } */
       this.socket.send("world.setBlock("+x+","+y+","+z+","+b+")");
     };
 
