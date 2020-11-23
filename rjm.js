@@ -919,7 +919,7 @@ class RaspberryJamMod {
 
     connect_p({ip}){
         this.ip = ip;
-        const rjm = this;
+        var rjm = this;
         return new Promise(function(resolve, reject) {
             if (rjm.socket != null)
                 rjm.socket.close();
