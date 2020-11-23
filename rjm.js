@@ -915,14 +915,15 @@ class RaspberryJamMod {
         var rjm = this;
         return this.sendAndReceive("event.block.hits()")
             .then(result => {
-                if (hits.indexOf(",") < 0) {
+                if (result.indexOf(",") < 0) 
                     return "";
-                }
+                
                 else {
                     var hits = result.split("|");
                     for(var i=0;i<hits.length;i++)
                         rjm.hits.push(hits[i].split(",").map(parseFloat));
                 }
+                return ""+this.hits.pop().slice(0,3);
             });
     };
 
