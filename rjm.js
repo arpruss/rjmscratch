@@ -403,6 +403,25 @@ class RaspberryJamMod {
                     }
             },            
             {
+                    "opcode": "setTurtlePosition",
+                    "blockType": "command",
+                    "text": "turtle move to ([x],[y],[z])",
+                    "arguments": {
+                        "x": {
+                            "type": "number",
+                            "defaultValue": 0
+                        },
+                        "y": {
+                            "type": "number",
+                            "defaultValue": 0
+                        },
+                        "z": {
+                            "type": "number",
+                            "defaultValue": 0
+                        },
+                    }
+            },            
+            {
                     "opcode": "resetTurtleAngle",
                     "blockType": "command",
                     "text": "turtle reset to [n] degrees",
@@ -651,12 +670,6 @@ class RaspberryJamMod {
         };
     };
 
-    connect({ip}){
-        this.ip = ip;
-        console.log("connecting to "+ip);
-        this.socket = new WebSocket("ws://"+ip+":14711");
-    };
-    
     blockByName({name}){
         return name;
     }
@@ -716,6 +729,10 @@ class RaspberryJamMod {
     
     turtleBlockEasy({b}) {
         this.turtle.block = b;
+    }
+    
+    setTurtlePosition({x,y,z}) {
+        this.turtle.pos = [x,y,z];
     }
     
     turtleThickness({n}) {
@@ -850,7 +867,9 @@ class RaspberryJamMod {
     connect_p({ip}){
         this.ip = ip;
         var rjm = this;
-        return new Promise(function(resolve, reject) {            
+        return new Promise(function(resolve, reject) {
+            if (rjm.socket != null)
+                rjm.socket.close();
             rjm.socket = new WebSocket("ws://"+ip+":14711");
             rjm.socket.onopen = function() {                
                 resolve();
