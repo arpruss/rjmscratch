@@ -187,6 +187,30 @@ class RaspberryJamMod {
                     }
             },            
             {
+                    "opcode": "getPlayerVector",
+                    "blockType": "reporter",
+                    "text": "player vector [mode] position",
+                    "arguments": {
+                        "mode": {
+                            "type": "number",
+                            "defaultValue": 0,
+                            "menu": "modeMenu"
+                        },
+                    }
+            },            
+            {
+                    "opcode": "extractFromVector",
+                    "blockType": "reporter",
+                    "text": "[coordinate]-coordinate of vector [vector]",
+                    "arguments": {
+                        "mode": {
+                            "type": "number",
+                            "defaultValue": 0,
+                            "menu": "coordinateMenu"
+                        },
+                    }
+            },            
+            {
                     "opcode": "setBlock",
                     "blockType": "command",
                     "text": "put [b] at ([x],[y],[z])",
@@ -669,6 +693,16 @@ class RaspberryJamMod {
             }
         };
     };
+    
+    parseXYZ(x,y,z) {
+        const coords = [];
+        if (typeof(x)=="string" && x.indexOf(",") >= 0) {
+            return x.split(",").map(parseFloat);
+        }
+        else {
+            return [x,y,z];
+        }
+    }
 
     blockByName({name}){
         return name;
@@ -732,7 +766,7 @@ class RaspberryJamMod {
     }
     
     setTurtlePosition({x,y,z}) {
-        this.turtle.pos = [x,y,z];
+        this.turtle.pos = parseXYZ(x,y,z);
     }
     
     turtleThickness({n}) {
@@ -810,6 +844,7 @@ class RaspberryJamMod {
     };
 
     spawnEntity({entity,x,y,z}) {
+        const [x,y,z] = parseXYZ(x,y,z);
         return this.sendAndReceive("world.spawnEntity("+entity+","+x+","+y+","+z+")"); // TODO: do something with entity ID
     };
 
@@ -831,7 +866,8 @@ class RaspberryJamMod {
     };
     
     getBlock({x,y,z}) {
-        return this.sendAndReceive("world.getBlockWithData("+Math.floor(x)+","+Math.floor(y)+","+Math.floor(z)+")")
+        const [x,y,z] = parseXYZ(x,y,z).map(Math.floor);
+        return this.sendAndReceive("world.getBlockWithData("+x+","+y+","+z+")")
             .then(b => {
                 return b;
             });
@@ -843,10 +879,26 @@ class RaspberryJamMod {
     }
 
     haveBlock({b,x,y,z}) {
-        return this.sendAndReceive("world.getBlockWithData("+Math.floor(x)+","+Math.floor(y)+","+Math.floor(z)+")")
+        const [x,y,z] = parseXYZ(x,y,z).map(Math.floor);
+        return this.sendAndReceive("world.getBlockWithData("+x+","+y+","+z+")")
             .then(block => {
                 return block == b;
             });
+    };
+    
+    getPlayerVector({mode}) {
+        return this.getPosition()
+            .then(pos => mode != 0 ? ""+pos[0]+","+pos[1]+","+pos[2] : ""+Math.floor(pos[0])+","+Math.floor(pos[1])+","+Math.floor(pos[2]));
+    };
+
+    extractFromVector({vector,coordinate}) {
+        v = vector.split(",");
+        if (v.length() <= coordinate) {
+            return 0.;
+        }
+        else {
+            return parseFloat(v[coordinate]);
+        }
     };
 
     getPlayerX({mode}) {
@@ -866,7 +918,7 @@ class RaspberryJamMod {
 
     connect_p({ip}){
         this.ip = ip;
-        var rjm = this;
+        const rjm = this;
         return new Promise(function(resolve, reject) {
             if (rjm.socket != null)
                 rjm.socket.close();
@@ -915,7 +967,7 @@ class RaspberryJamMod {
         
         var nib = this.turtle.nib;
         
-        var draw = function(x,y,z) {
+        const draw = function(x,y,z) {
             for (var i=0; i<nib.length; i++) {
                 var nx = x + nib[i][0];
                 var ny = y + nib[i][1];
@@ -993,13 +1045,12 @@ class RaspberryJamMod {
     };
     
     setBlock({x,y,z,b}) {
-      x = Math.floor(x);
-      y = Math.floor(y);
-      z = Math.floor(z);
+      const [x,y,z] = parseXYZ(x,y,z).map(Math.floor);
       this.socket.send("world.setBlock("+x+","+y+","+z+","+b+")");
     };
 
     setPlayerPos({x,y,z}) {
+      const [x,y,z] = parseXYZ(x,y,z);
       this.socket.send("player.setPos("+x+","+y+","+z+")");
     };
 }
