@@ -203,10 +203,14 @@ class RaspberryJamMod {
                     "blockType": "reporter",
                     "text": "[coordinate]-coordinate of vector [vector]",
                     "arguments": {
-                        "mode": {
+                        "coordinate": {
                             "type": "number",
                             "defaultValue": 0,
                             "menu": "coordinateMenu"
+                        },
+                        "vector": {
+                            "type": "string",
+                            "defaultValue": "0,0,0",
                         },
                     }
             },          
