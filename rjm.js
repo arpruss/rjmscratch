@@ -913,7 +913,7 @@ class RaspberryJamMod {
         if (this.hits.length>0) 
             return ""+this.hits.pop().slice(0,3);
         var rjm = this;
-        return this.sendAndReceive("event.block.hits()")
+        return this.sendAndReceive("events.block.hits()")
             .then(result => {
                 if (result.indexOf(",") < 0) 
                     return "";
