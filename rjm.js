@@ -896,7 +896,7 @@ class RaspberryJamMod {
     };
 
     extractFromVector({vector,coordinate}) {
-        v = vector.split(",");
+        var v = vector.split(",");
         if (v.length <= coordinate) {
             return 0.;
         }
