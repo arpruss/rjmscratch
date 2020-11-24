@@ -848,7 +848,7 @@ class RaspberryJamMod {
         var newX = this.turtle.pos[0] + this.turtle.matrix[0][2] * n;
         var newY = this.turtle.pos[1] + this.turtle.matrix[1][2] * n;
         var newZ = this.turtle.pos[2] + this.turtle.matrix[2][2] * n;
-        if (this.turtle.penDown)
+        if (this.turtle.penDown != 0)
             this.drawLine(this.turtle.pos[0],this.turtle.pos[1],this.turtle.pos[2],newX,newY,newZ);
         this.turtle.pos = [newX,newY,newZ];
     }; 
@@ -1001,9 +1001,6 @@ class RaspberryJamMod {
         var dz2 = n * 2;
         
         var nib = this.turtle.nib;
-        
-        console.log("turtle "+this.turtle);
-        console.log("nib "+this.nib);
         
         var draw = function(x,y,z) {
             for (var i=0; i<nib.length; i++) {
