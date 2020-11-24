@@ -2,7 +2,7 @@
 // https://sheeptester.github.io/scratch-gui/?url=https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
 
 class RJMTurtle {
-    varructor() {
+    constructor() {
         this.block = "1";
         this.nib = [[0,0,0]];
         this.pos = [0,0,0];
