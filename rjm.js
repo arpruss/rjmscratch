@@ -1002,6 +1002,9 @@ class RaspberryJamMod {
         
         var nib = this.turtle.nib;
         
+        console.log("turtle "+this.turtle);
+        console.log("nib "+this.nib);
+        
         var draw = function(x,y,z) {
             for (var i=0; i<nib.length; i++) {
                 var nx = x + nib[i][0];
