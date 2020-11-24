@@ -145,7 +145,7 @@ class RaspberryJamMod {
                         },
                     }
             },             */
-            {
+            /* {
                     "opcode": "onBlock",
                     "blockType": "Boolean",
                     "text": "player on [b]",
@@ -156,7 +156,7 @@ class RaspberryJamMod {
                             "menu": "blockMenu"
                         },
                     }
-            },
+            }, */
             {
                     "opcode": "getPlayerX",
                     "blockType": "reporter",
