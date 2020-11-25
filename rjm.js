@@ -911,7 +911,7 @@ class RaspberryJamMod {
     
     getHit() {
         if (this.hits.length>0) 
-            return ""+this.hits.pop().slice(0,3);
+            return ""+this.hits.shift().slice(0,3);
         var rjm = this;
         return this.sendAndReceive("events.block.hits()")
             .then(result => {
@@ -923,7 +923,7 @@ class RaspberryJamMod {
                     for(var i=0;i<hits.length;i++)
                         rjm.hits.push(hits[i].split(",").map(parseFloat));
                 }
-                return ""+this.hits.pop().slice(0,3);
+                return ""+this.shift.pop().slice(0,3);
             });
     };
 
