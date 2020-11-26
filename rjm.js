@@ -959,7 +959,7 @@ class RaspberryJamMod {
             if (rjm.socket != null)
                 rjm.socket.close();
             rjm.clear();
-            rjm.socket = new WebSocket("ws://"+ip+":14711");
+            rjm.socket = new WebSocket("wss://"+ip+":14711");
             rjm.socket.onopen = function() {                
                 resolve();
             };
