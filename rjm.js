@@ -61,6 +61,7 @@ class RaspberryJamMod {
         this.hits = [];
         this.turtle = new RJMTurtle();
         this.turtleHistory = [];
+        this.savedBlocks = null;
     }
     
     getInfo() {
@@ -488,6 +489,20 @@ class RaspberryJamMod {
                     "arguments": {
                     }
             },            
+            {
+                    "opcode": "suspend",
+                    "blockType": "command",
+                    "text": "suspend drawing",
+                    "arguments": {
+                    }
+            },            
+            {
+                    "opcode": "resume",
+                    "blockType": "command",
+                    "text": "resume drawing",
+                    "arguments": {
+                    }
+            },            
             ],
         "menus": {
             moveMenu: [{text:"forward",value:1}, {text:"back",value:-1}],
@@ -738,12 +753,35 @@ class RaspberryJamMod {
             rjm.socket.send(msg);
         });
     };
+    
+    resume() {
+        if (this.savedBlocks != null) {
+            for (var [key, value] of this.savedBlocks)
+                this.socket.send("world.setBlock("+key+","+value+")");
+            this.savedBlocks = null;
+        }
+    };
+    
+    suspend() {
+        if (this.savedBlocks == null) {
+            this.savedBlocks = new Map();
+        }
+    }
+    
+    drawBlock(x,y,z,b) {
+        if (this.savedBlocks != null) {
+            this.savedBlocks.set(""+x+","+y+","+z, b);
+        }
+        else {
+            this.socket.send("world.setBlock("+x+","+y+","+z+","+b+")");
+        }
+    };
 
     drawLine(x1,y1,z1,x2,y2,z2) {
         var l = this.getLine(x1,y1,z1,x2,y2,z2);
         
         for (var i=0; i<l.length ; i++) {
-            this.setBlock({x:l[i][0],y:l[i][1],z:l[i][2],b:this.turtle.block});
+            this.drawBlock(l[i][0],l[i][1],l[i][2],this.turtle.block);
         }
     };
     
@@ -830,7 +868,7 @@ class RaspberryJamMod {
             return;
         }
         else if (l == 1) {
-            this.setBlock({x:x0,y:y0,z:z0,b:this.turtle.block});
+            this.drawBlock(x0,y0,z0,this.turtle.block)
             return;
         }
 
@@ -839,7 +877,7 @@ class RaspberryJamMod {
             var x = p[0] + x0;
             var y = p[1] + y0;
             var z = p[2] + z0;
-            this.setBlock({x:x,y:y,z:z,b:this.turtle.block});
+            this.drawBlock(x,y,z,this.turtle.block)
         }
     };
 
@@ -1081,7 +1119,7 @@ class RaspberryJamMod {
     
     setBlock({x,y,z,b}) {
       var [x,y,z] = this.parseXYZ(x,y,z).map(Math.floor);
-      this.socket.send("world.setBlock("+x+","+y+","+z+","+b+")");
+      drawBlock(x,y,z,b);
     };
 
     setPlayerPos({x,y,z}) {
