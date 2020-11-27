@@ -1119,7 +1119,7 @@ class RaspberryJamMod {
     
     setBlock({x,y,z,b}) {
       var [x,y,z] = this.parseXYZ(x,y,z).map(Math.floor);
-      drawBlock(x,y,z,b);
+      this.drawBlock(x,y,z,b);
     };
 
     setPlayerPos({x,y,z}) {
