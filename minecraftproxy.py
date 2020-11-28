@@ -3,7 +3,9 @@ from websocket_server import WebsocketServer
 import threading
 import socket
 import select
+from sys import argv
 from collections import namedtuple
+import subprocess
 
 tcpConnections = {}
 
@@ -67,4 +69,11 @@ server = WebsocketServer(14711, '0.0.0.0')
 server.set_fn_new_client(new_client)
 server.set_fn_client_left(client_left)
 server.set_fn_message_received(message_received)
+if len(argv)>1:
+    def run():
+        subprocess.run(argv[1], shell=True)
+        server.shutdown()
+    t = threading.Thread(target=run)
+    t.daemon = True
+    t.start()
 server.run_forever()
