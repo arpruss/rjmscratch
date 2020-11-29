@@ -33,20 +33,20 @@ class RJMTurtle {
     };
     
     cosDegrees(angle) {
-        if (this.mod(angleDegrees,90) == 0) {
-            return [1,0,-1,0][this.mod(angleDegrees,360)];
+        if (this.mod(angle,90) == 0) {
+            return [1,0,-1,0][this.mod(angle,360)];
         }
         else {
-            return Math.cos(angleDegrees * this.TO_RADIANS);
+            return Math.cos(angle * this.TO_RADIANS);
         }
     }
     
     sinDegrees(angle) {
-        if (this.mod(angleDegrees,90) == 0) {
-            return [0,1,0,-1][this.mod(angleDegrees,360)];
+        if (this.mod(angle,90) == 0) {
+            return [0,1,0,-1][this.mod(angle,360)];
         }
         else {
-            return Math.sin(angleDegrees * this.TO_RADIANS);
+            return Math.sin(angle * this.TO_RADIANS);
         }
     }
     
