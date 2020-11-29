@@ -34,7 +34,7 @@ class RJMTurtle {
     
     cosDegrees(angle) {
         if (this.mod(angle,90) == 0) {
-            return [1,0,-1,0][this.mod(angle,360)];
+            return [1,0,-1,0][this.mod(angle,360)/90];
         }
         else {
             return Math.cos(angle * this.TO_RADIANS);
@@ -43,7 +43,7 @@ class RJMTurtle {
     
     sinDegrees(angle) {
         if (this.mod(angle,90) == 0) {
-            return [0,1,0,-1][this.mod(angle,360)];
+            return [0,1,0,-1][this.mod(angle,360)/90];
         }
         else {
             return Math.sin(angle * this.TO_RADIANS);
