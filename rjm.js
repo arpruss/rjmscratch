@@ -948,9 +948,6 @@ class RaspberryJamMod {
     getBlock({x,y,z}) {
         var pos = ""+this.parseXYZ(x,y,z).map(Math.floor);
         if (this.savedBlocks != null) {
-            console.log(this.savedBlocks);
-            console.log("xyz"+pos);
-            console.log("have"+this.savedBlocks.has(pos));
             if (this.savedBlocks.has(pos)) {
                 var b = this.savedBlocks.get(pos);
                 if (b.indexOf(",")<0)
