@@ -28,27 +28,51 @@ class RJMTurtle {
         return c;
     };
     
-    yawMatrix(angleDegrees) {
-        var theta = angleDegrees * this.TO_RADIANS;
-        return [[Math.cos(theta), 0., -Math.sin(theta)],
-                [0.,         1., 0.],
-                [Math.sin(theta), 0., Math.cos(theta)]];
+    mod(n,m) {
+        return ((n%m)+m)%m;
     };
     
-    rollMatrix(angleDegrees) {
-        var theta = angleDegrees * this.TO_RADIANS;
-        return [[Math.cos(theta), -Math.sin(theta), 0.],
-                [Math.sin(theta), Math.cos(theta),0.],
-                [0.,          0.,          1.]];
+    cosDegrees(angle) {
+        if (this.mod(angleDegrees,90) == 0) {
+            return [1,0,-1,0][this.mod(angleDegrees,360)];
+        }
+        else {
+            return Math.cos(angleDegrees * this.TO_RADIANS);
+        }
+    }
+    
+    sinDegrees(angle) {
+        if (this.mod(angleDegrees,90) == 0) {
+            return [0,1,0,-1][this.mod(angleDegrees,360)];
+        }
+        else {
+            return Math.sin(angleDegrees * this.TO_RADIANS);
+        }
+    }
+    
+    yawMatrix(angle) {
+        var c = this.cosDegrees(angle);
+        var s = this.sinDegrees(angle);
+        return [[c, 0, -s],
+                [0, 1, 0],
+                [s, 0, c]];
     };
     
-    pitchMatrix(angleDegrees) {
-        var theta = angleDegrees * this.TO_RADIANS;
-        return [[1.,          0.,          0.],
-                [0., Math.cos(theta),Math.sin(theta)],
-                [0., -Math.sin(theta),Math.cos(theta)]];
+    rollMatrix(angle) {
+        var c = this.cosDegrees(angle);
+        var s = this.sinDegrees(angle);
+        return [[c, -s, 0],
+                [s,  c, 0],
+                [0,  0, 1]];
     };
     
+    pitchMatrix(angle) {
+        var c = this.cosDegrees(angle);
+        var s = this.sinDegrees(angle);
+        return [[1, 0, 0],
+                [0, c, s],
+                [0,-s, c]];
+    };
 }
 
 class RaspberryJamMod {
@@ -889,6 +913,8 @@ class RaspberryJamMod {
         if (this.turtle.penDown != 0)
             this.drawLine(this.turtle.pos[0],this.turtle.pos[1],this.turtle.pos[2],newX,newY,newZ);
         this.turtle.pos = [newX,newY,newZ];
+        console.log("turtle at "+this.turtle.pos);
+        console.log("matrix "+this.turtle.matrix);
     }; 
     
     getPosition() {
