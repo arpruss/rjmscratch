@@ -907,6 +907,9 @@ class RaspberryJamMod {
 
     moveTurtle({dir,n}) {
         n *= dir;
+        console.log("matrix "+this.turtle.matrix);
+        console.log("turtle at "+this.turtle.pos);
+        console.log("n "+n);
         var newX = this.turtle.pos[0] + this.turtle.matrix[0][2] * n;
         var newY = this.turtle.pos[1] + this.turtle.matrix[1][2] * n;
         var newZ = this.turtle.pos[2] + this.turtle.matrix[2][2] * n;
@@ -914,7 +917,6 @@ class RaspberryJamMod {
             this.drawLine(this.turtle.pos[0],this.turtle.pos[1],this.turtle.pos[2],newX,newY,newZ);
         this.turtle.pos = [newX,newY,newZ];
         console.log("turtle at "+this.turtle.pos);
-        console.log("matrix "+this.turtle.matrix);
     }; 
     
     getPosition() {
