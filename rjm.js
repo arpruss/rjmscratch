@@ -946,8 +946,17 @@ class RaspberryJamMod {
     };
     
     getBlock({x,y,z}) {
-        var [x,y,z] = this.parseXYZ(x,y,z).map(Math.floor);
-        return this.sendAndReceive("world.getBlockWithData("+x+","+y+","+z+")")
+        var pos = ""+this.parseXYZ(x,y,z).map(Math.floor);
+        if (this.savedBlocks != null) {
+            if (this.savedBlocks.has(pos)) {
+                var b = this.savedBlocks.get(pos);
+                if (b.indexOf(",")<0)
+                    return ""+b+",0";
+                else
+                    return b;
+            }
+        }
+        return this.sendAndReceive("world.getBlockWithData("+pos+")")
             .then(b => {
                 return b;
             });
