@@ -1,6 +1,5 @@
 class ScratchFetch {
     constructor() {
-        console.log("regi")
     }
     
     getInfo() {
