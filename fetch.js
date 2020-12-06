@@ -39,8 +39,7 @@ class ScratchFetch {
     }
     
     fetchURL({url}) {
-        console.log("fetching")
-        return fetch(url).then(response => { console.log("have resp"); return response.text() } )
+        return fetch(url).then(response => response.text())
     }
     
     jsonExtract({datum,data}) {
@@ -61,10 +60,3 @@ class ScratchFetch {
 }
 
 Scratch.extensions.register(new ScratchFetch());
-/*
-(function() {
-    var extensionInstance = new ScratchFetch(window.vm.extensionManager.runtime)
-    var serviceName = window.vm.extensionManager._registerInternalExtension(extensionInstance)
-    window.vm.extensionManager._loadedExtensions.set(extensionInstance.getInfo().id, serviceName)
-})()
-*/
