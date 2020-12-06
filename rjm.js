@@ -391,7 +391,7 @@ class RaspberryJamMod {
                     "text": "turtle turn left [n] degrees",
                     "arguments": {
                         "n": {
-                            "type": "angle",
+                            "type": "number",
                             "defaultValue": "15"
                         },
                     }
@@ -402,7 +402,7 @@ class RaspberryJamMod {
                     "text": "turtle turn right [n] degrees",
                     "arguments": {
                         "n": {
-                            "type": "angle",
+                            "type": "number",
                             "defaultValue": "15"
                         },
                     }
