@@ -8,32 +8,32 @@ class ScratchFetch {
             "name": "Fetch",
             "blocks": [
                         {
-                        "opcode": "fetchURL",
-                        "blockType": "reporter",
-                        "text": "fetch data from [url]",
-                        "arguments": {
-                            "url": {
-                                "type": "string",
-                                "defaultValue": "https://api.weather.gov/stations/KNYC/observations"
-                            },
-                        }
+                            "opcode": "fetchURL",
+                            "blockType": "reporter",
+                            "text": "fetch data from [url]",
+                            "arguments": {
+                                "url": {
+                                    "type": "string",
+                                    "defaultValue": "https://api.weather.gov/stations/KNYC/observations"
+                                },
+                            }
                         },
                         {
-                        "opcode": "jsonExtract",
-                        "blockType": "reporter",
-                        "text": "extract [datum] from [data]",
-                        "arguments": {
-                            "datum": {
-                                "type": "string",
-                                "defaultValue": "temperature"
-                            },
-                            "data": {
-                                "type": "string",
-                                "defaultValue": '{"temperature": 12.3}'
-                            },
-                        }
+                            "opcode": "jsonExtract",
+                            "blockType": "reporter",
+                            "text": "extract [datum] from [data]",
+                            "arguments": {
+                                "datum": {
+                                    "type": "string",
+                                    "defaultValue": "temperature"
+                                },
+                                "data": {
+                                    "type": "string",
+                                    "defaultValue": '{"temperature": 12.3}'
+                                },
+                            }
                         },
-            ],
+                ],
         };
     }
     
@@ -58,4 +58,4 @@ class ScratchFetch {
     }
 }
 
-Scratch.extensions.register(new ScratchFetch());
+Scratch.extensions.register(new ScratchFetch())
