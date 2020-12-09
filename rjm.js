@@ -231,28 +231,6 @@ class RaspberryJamMod {
                     }
             },
             {
-                    "opcode": "makeVector",
-                    "blockType": "reporter",
-                    "text": "vector ([x],[y],[z])",
-                    "arguments": {
-                        "x": {
-                            "type": "number",
-                            "defaultValue": 0,
-                            "menu": "modeMenu"
-                        },
-                        "y": {
-                            "type": "number",
-                            "defaultValue": 0,
-                            "menu": "modeMenu"
-                        },
-                        "z": {
-                            "type": "number",
-                            "defaultValue": 0,
-                            "menu": "modeMenu"
-                        },
-                    }
-            },                
-            {
                     "opcode": "getHit",
                     "blockType": "reporter",
                     "text": "sword hit vector position",
@@ -275,6 +253,28 @@ class RaspberryJamMod {
                         },
                     }
             },          
+            {
+                    "opcode": "makeVector",
+                    "blockType": "reporter",
+                    "text": "vector ([x],[y],[z])",
+                    "arguments": {
+                        "x": {
+                            "type": "number",
+                            "defaultValue": 0,
+                            "menu": "modeMenu"
+                        },
+                        "y": {
+                            "type": "number",
+                            "defaultValue": 0,
+                            "menu": "modeMenu"
+                        },
+                        "z": {
+                            "type": "number",
+                            "defaultValue": 0,
+                            "menu": "modeMenu"
+                        },
+                    }
+            },                
             {
                     "opcode": "setBlock",
                     "blockType": "command",
