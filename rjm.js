@@ -261,17 +261,14 @@ class RaspberryJamMod {
                         "x": {
                             "type": "number",
                             "defaultValue": 0,
-                            "menu": "modeMenu"
                         },
                         "y": {
                             "type": "number",
                             "defaultValue": 0,
-                            "menu": "modeMenu"
                         },
                         "z": {
                             "type": "number",
                             "defaultValue": 0,
-                            "menu": "modeMenu"
                         },
                     }
             },                
