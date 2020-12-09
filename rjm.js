@@ -229,7 +229,29 @@ class RaspberryJamMod {
                             "menu": "modeMenu"
                         },
                     }
-            },            
+            },
+            {
+                    "opcode": "makeVector",
+                    "blockType": "reporter",
+                    "text": "vector ([x],[y],[z])",
+                    "arguments": {
+                        "x": {
+                            "type": "number",
+                            "defaultValue": 0,
+                            "menu": "modeMenu"
+                        },
+                        "y": {
+                            "type": "number",
+                            "defaultValue": 0,
+                            "menu": "modeMenu"
+                        },
+                        "z": {
+                            "type": "number",
+                            "defaultValue": 0,
+                            "menu": "modeMenu"
+                        },
+                    }
+            },                
             {
                     "opcode": "getHit",
                     "blockType": "reporter",
@@ -979,6 +1001,10 @@ class RaspberryJamMod {
         return this.getPosition()
             .then(pos => mode != 0 ? ""+pos[0]+","+pos[1]+","+pos[2] : ""+Math.floor(pos[0])+","+Math.floor(pos[1])+","+Math.floor(pos[2]));
     };
+    
+    makeVector({x,y,z}) {
+        return ""+x+","+y+","+z
+    }
     
     getHit() {
         if (this.hits.length>0) 
