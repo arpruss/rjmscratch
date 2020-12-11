@@ -944,11 +944,12 @@ class RaspberryJamMod {
 
     spawnEntity({entity,x,y,z}) {
         var [x,y,z] = this.parseXYZ(x,y,z);
-        return this.sendAndReceive("world.spawnEntity("+entity+","+x+","+y+","+z+")"); // TODO: do something with entity ID
+        return this.sendAndReceive("world.spawnEntity("+entity+","+x+","+y+","+z+")"); // TODO: do something with entity ID?
     };
 
     movePlayer({dx,dy,dz}) {
-        return this.getPosition().then(pos => this.setPlayerPos({x:pos[0]+dx,y:pos[1]+dy,z:pos[2]+dz}));
+        var [x,y,z] = this.parseXYZ(dx,dy,dz);
+        return this.getPosition().then(pos => this.setPlayerPos({x:pos[0]+x,y:pos[1]+y,z:pos[2]+z}));
     };
 
     movePlayerTop() {
