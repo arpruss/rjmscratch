@@ -76,7 +76,7 @@ class RJMTurtle {
 }
 
 class RaspberryJamMod {
-    constructor() {
+    constructor(runtime) {
         this.clear();
     }
     
