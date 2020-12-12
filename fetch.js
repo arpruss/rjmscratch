@@ -21,9 +21,9 @@ class ScratchFetch {
                         {
                             "opcode": "jsonExtract",
                             "blockType": "reporter",
-                            "text": "extract [datum] from [data]",
+                            "text": "extract [name] from [data]",
                             "arguments": {
-                                "datum": {
+                                "name": {
                                     "type": "string",
                                     "defaultValue": "temperature"
                                 },
@@ -41,10 +41,10 @@ class ScratchFetch {
         return fetch(url).then(response => response.text())
     }
     
-    jsonExtract({datum,data}) {
+    jsonExtract({name,data}) {
         var parsed = JSON.parse(data)
-        if (datum in parsed) {
-            var out = parsed[datum]
+        if (name in parsed) {
+            var out = parsed[name]
             var t = typeof(out)
             if (t == "string" || t == "number")
                 return out
