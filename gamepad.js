@@ -90,11 +90,13 @@ class ScratchGamepad {
             for (var i = 0; i < gamepad.axes.length; i++) 
                 this.previousAxes.push(0)
         }
-        this.previousButtons = this.currentButtons
+        else {
+            this.previousButtons = this.currentButtons
+            this.previousAxes = this.currentAxes
+        }
         this.currentButtons = []
         for (var i = 0; i < gamepad.buttons.length; i++) 
             this.currentButtons.push(gamepad.buttons[i].pressed)
-        this.previousAxes = this.currentAxes
         this.currentAxes = []
         for (var i = 0; i < gamepad.axes.length; i++)
             this.currentAxes.push(gamepad.axes[i])
