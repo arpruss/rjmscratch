@@ -8,8 +8,8 @@ class ScratchSimpleGamepad {
     
     getInfo() {
         return {
-            "id": "Gamepad",
-            "name": "Gamepad",
+            "id": "SimpleGamepad",
+            "name": "SimpleGamepad",
             "blocks": [{
                         "opcode": "buttonPressedReleased",
                         "blockType": "hat",
@@ -34,11 +34,12 @@ class ScratchSimpleGamepad {
     }
     
     update() {
-        if (this.runtime.currentMSecs == this.currentMSecs)
-            return
+        if (this.runtime.currentMSecs == this.currentMSecs) 
+            return // not a new polling cycle
         this.currentMSecs = this.runtime.currentMSecs
         var gamepads = navigator.getGamepads()
         if (gamepads == null || gamepads.length == 0 || gamepads[0] == null) {
+            // different number of buttons, so new gamepad
             this.previousButtons = []
             this.currentButtons = []
             return
