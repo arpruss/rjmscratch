@@ -1,6 +1,3 @@
-// https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
-// https://sheeptester.github.io/scratch-gui/?url=https://combinatronics.com/arpruss/rjmscratch/main/rjm.js
-
 class RJMTurtle {
     constructor() {
         this.block = "1";
@@ -1185,4 +1182,13 @@ class RaspberryJamMod {
     };
 }
 
-Scratch.extensions.register(new RaspberryJamMod());
+(function() {
+    if (typeof window === "undefined" || !window.vm) {
+        Scratch.extensions.register(new RaspberryJamMod())
+    }
+    else {
+        var extensionInstance = new RaspberryJamMod(window.vm.extensionManager.runtime)
+        var serviceName = window.vm.extensionManager._registerInternalExtension(extensionInstance)
+        window.vm.extensionManager._loadedExtensions.set(extensionInstance.getInfo().id, serviceName)
+    }
+})()
