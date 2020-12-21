@@ -21,7 +21,7 @@ class SingleGamepad {
         if (this.currentMSecs == currentMSecs)
             return
         
-        var gamepad = getGamepad(this.index)
+        var gamepad = this.getGamepad(this.index)
         
         if (gamepad == null) {
             this.id = null
