@@ -242,6 +242,7 @@ class ScratchGamepad {
     }
     
     buttonDown({b,i}) {
+        console.log(""+i+" "+this.gamepads[i-1].getButton(b))
         return this.gamepads[i-1].getButton(b)
     }
     
