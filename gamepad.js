@@ -86,8 +86,10 @@ class SingleGamepad {
     
     getButton(currentMSecs,i) {
         this.update(currentMSecs)
-        if (i < this.currentButtons.length)
+        if (i < this.currentButtons.length) {
+            console.log(this.currentButtons)
             return this.currentButtons[i]
+        }
         else
             return false
     }
@@ -242,7 +244,7 @@ class ScratchGamepad {
     }
     
     buttonDown({b,i}) {
-        console.log(""+i+" "+this.gamepads[i-1].getButton(b))
+        console.log(""+i+" "+b+" "+this.gamepads[i-1].getButton(b))
         return this.gamepads[i-1].getButton(b)
     }
     
