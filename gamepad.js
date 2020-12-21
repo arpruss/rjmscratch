@@ -87,7 +87,7 @@ class SingleGamepad {
     
     getButton(currentMSecs,i) {
         this.update(currentMSecs)
-        console.log(""+currentMSecs+" "+i"+this.currentButtons)
+        console.log(""+currentMSecs+" "+i+this.currentButtons)
         if (i < this.currentButtons.length) {
             return this.currentButtons[i]
         }
