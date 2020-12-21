@@ -86,12 +86,13 @@ class SingleGamepad {
     
     getButton(currentMSecs,i) {
         this.update(currentMSecs)
+        console.log(this.currentButtons)
         if (i < this.currentButtons.length) {
-            console.log(this.currentButtons)
             return this.currentButtons[i]
         }
-        else
+        else {
             return false
+        }
     }
     
     getAxis(currentMSecs,i) {
