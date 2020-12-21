@@ -37,7 +37,7 @@ class SingleGamepad {
         this.currentMSecs = currentMSecs
         
         if (!this.matches(gamepad)) {
-            this.id = id
+            this.id = gamepad.id
         
             this.previousButtons = []
             for (var i=0;i<gamepad.buttons.length;i++) {
