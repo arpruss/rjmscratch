@@ -1,3 +1,5 @@
+// MIT license
+
 class SingleGamepad {
     constructor(index) {
         this.id = null
