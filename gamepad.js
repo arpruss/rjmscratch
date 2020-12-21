@@ -238,16 +238,16 @@ class ScratchGamepad {
     }
 
     axisMoved({b,i}) {
-        return this.gamepads[i-1].changedAxis(b)
+        return this.gamepads[i-1].changedAxis(this.runtime.currentMSecs,b)
     }
     
     axisValue({b,i}) {
-        return this.gamepads[i-1].getAxis(b)
+        return this.gamepads[i-1].getAxis(this.runtime.currentMSecs,b)
     }
     
     buttonDown({b,i}) {
-        console.log(""+i+" "+b+" "+this.gamepads[i-1].getButton(b))
-        return this.gamepads[i-1].getButton(b)
+        console.log(""+i+" "+b+" "+this.gamepads[i-1].getButton(this.runtime.currentMSecs,b))
+        return this.gamepads[i-1].getButton(this.runtime.currentMSecs,b)
     }
     
     rumble({s,w,t,i}) {
