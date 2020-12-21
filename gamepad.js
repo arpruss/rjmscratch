@@ -63,6 +63,8 @@ class SingleGamepad {
         for (var i=0;i<gamepad.axes.length;i++) {
             this.currentAxes.push(gamepad.axes[i])
         }
+        
+        console.log(this.currentButtons)
     }
     
     pressedReleased(currentMSecs,pr,i) {
