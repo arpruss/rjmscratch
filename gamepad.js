@@ -136,7 +136,7 @@ class ScratchGamepad {
                         "arguments": {
                             "b": {
                                 "type": "number",
-                                "defaultValue": "0"
+                                "defaultValue": "1"
                             },
                             "pr": {
                                 "type": "number",
@@ -157,7 +157,7 @@ class ScratchGamepad {
                         "arguments": {
                             "b": {
                                 "type": "number",
-                                "defaultValue": "0"
+                                "defaultValue": "1"
                             },
                             "i": {
                                 "type": "number",
@@ -173,7 +173,7 @@ class ScratchGamepad {
                         "arguments": {
                             "b": {
                                 "type": "number",
-                                "defaultValue": "0"
+                                "defaultValue": "1"
                             },
                             "i": {
                                 "type": "number",
@@ -189,7 +189,7 @@ class ScratchGamepad {
                         "arguments": {
                             "b": {
                                 "type": "number",
-                                "defaultValue": "0"
+                                "defaultValue": "1"
                             },
                             "i": {
                                 "type": "number",
@@ -234,20 +234,19 @@ class ScratchGamepad {
     }
     
     buttonPressedReleased({b,pr,i}) {
-        return this.gamepads[i-1].pressedReleased(this.runtime.currentMSecs,b,pr)
+        return this.gamepads[i-1].pressedReleased(this.runtime.currentMSecs,b-1,pr)
     }
 
     axisMoved({b,i}) {
-        return this.gamepads[i-1].changedAxis(this.runtime.currentMSecs,b)
+        return this.gamepads[i-1].changedAxis(this.runtime.currentMSecs,b-1)
     }
     
     axisValue({b,i}) {
-        return this.gamepads[i-1].getAxis(this.runtime.currentMSecs,b)
+        return this.gamepads[i-1].getAxis(this.runtime.currentMSecs,b-1)
     }
     
     buttonDown({b,i}) {
-        console.log(""+i+" "+b+" "+this.gamepads[i-1].getButton(this.runtime.currentMSecs,b))
-        return this.gamepads[i-1].getButton(this.runtime.currentMSecs,b)
+        return this.gamepads[i-1].getButton(this.runtime.currentMSecs,b-1)
     }
     
     rumble({s,w,t,i}) {
