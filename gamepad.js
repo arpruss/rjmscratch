@@ -63,15 +63,15 @@ class SingleGamepad {
         for (var i=0;i<gamepad.axes.length;i++) {
             this.currentAxes.push(gamepad.axes[i])
         }
-        
-        console.log(this.currentButtons)
     }
     
     pressedReleased(currentMSecs,pr,i) {
         this.update(currentMSecs)
         
-        if (i < this.currentButtons.length)
+        if (i < this.currentButtons.length) {
+            console.log(""+this.currentButtons[i]+" "+this.previousButtons[i]+" "+pr)
             return this.currentButtons[i] != this.previousButtons[i] && this.currentButtons[i] == pr
+        }
         
         return false
     }
