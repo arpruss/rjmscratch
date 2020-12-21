@@ -63,11 +63,11 @@ class SingleGamepad {
         }
     }
     
-    changedButton(currentMSecs,i) {
+    pressedReleased(currentMSecs,pr,i) {
         this.update(currentMSecs)
         
         if (i < this.currentButtons.length)
-            return this.currentButtons[i] != this.previousButtons[i]
+            return this.currentButtons[i] != this.previousButtons[i] && this.currentButtons[i] == pr
         
         return false
     }
@@ -227,7 +227,7 @@ class ScratchGamepad {
     }
     
     buttonPressedReleased({b,pr,i}) {
-        return this.gamepads[i-1].getButton(this.runtime.currentMSecs) == pr
+        return this.gamepads[i-1].pressedReleased(this.runtime.currentMSecs,b,pr)
     }
 
     axisMoved({b,i}) {
