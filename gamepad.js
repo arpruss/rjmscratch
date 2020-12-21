@@ -1,12 +1,121 @@
+class SingleGamepad {
+    constructor(index) {
+        this.id = null
+        this.index = index
+        this.currentMSecs = null
+    }
+    
+    matches(gamepad) {
+        return gamepad && this.index != null && gamepad.id == this.id && 
+            gamepad.buttons.length == this.currentButtons.length && gamepad.axes.length == this.currentAxes.length
+    }
+    
+    getGamepad(i) {
+        var gamepads = navigator.getGamepads()
+        if (gamepads == null || gamepads.length <= i || ! gamepads[i]) 
+            return null
+        return gamepads[i]
+    }
+    
+    update(currentMSecs) {
+        if (this.currentMSecs == currentMSecs)
+            return
+        
+        var gamepad = getGamepad(this.index)
+        
+        if (gamepad == null) {
+            this.id = null
+            this.currentButtons = []
+            this.previousButtons = []
+            this.currentAxes = []
+            this.previousAxes = []
+            return
+        }
+        
+        this.currentMSecs = currentMSecs
+        
+        if (!this.matches(gamepad)) {
+            this.id = id
+        
+            this.previousButtons = []
+            for (var i=0;i<gamepad.buttons.length;i++) {
+                this.previousButtons.push(false)
+            }
+            
+            this.previousAxes = []
+            for (var i=0;i<gamepad.axes.length;i++) {
+                this.previousAxes.push(0)
+            }
+        }
+        else {
+            this.previousButtons = this.currentButtons
+            this.previousAxes = this.previousAxes
+        }
+        
+        this.currentButtons = []
+        for (var i=0;i<gamepad.buttons.length;i++) {
+            this.currentButtons.push(gamepad.buttons[i].pressed)
+        }
+        
+        this.currentAxes = []
+        for (var i=0;i<gamepad.axes.length;i++) {
+            this.currentAxes.push(gamepad.axes[i])
+        }
+    }
+    
+    changedButton(currentMSecs,i) {
+        this.update(currentMSecs)
+        
+        if (i < this.currentButtons.length)
+            return this.currentButtons[i] != this.previousButtons[i]
+        
+        return false
+    }
+    
+    changedAxis(currentMSecs,i) {
+        this.update(currentMSecs)
+        
+        if (i < this.currentAxes.length)
+            return this.currentAxes[i] != this.previousAxes[i]
+        
+        return false
+    }
+    
+    getButton(currentMSecs,i) {
+        this.update(currentMSecs)
+        if (i < this.currentButtons.length)
+            return this.currentButtons[i]
+        else
+            return false
+    }
+    
+    getAxis(currentMSecs,i) {
+        this.update(currentMSecs)
+        if (i < this.currentAxes.length)
+            return this.currentAxes[i]
+        else
+            return false
+    }
+    
+    rumble(s,w,t) {
+        var gamepad = this.gamepads[i].getGamepad()
+        if (gamepad != null && gamepad.vibrationActuator) {
+            gamepad.vibrationActuator.playEffect("dual-rumble", {
+                duration: 1000*t,
+                strongMagnitude: Math.max(0,Math.min(s,1)),
+                weakMagnitude: Math.max(0,Math.min(w,1))
+            });
+        }
+    }
+}
+
 class ScratchGamepad {
     constructor(runtime) {
         this.id = null
         this.runtime = runtime
-        this.currentMSecs = -1
-        this.previousButtons = []
-        this.currentButtons = []
-        this.previousAxes = []
-        this.currentAxes = []
+        this.gamepads = []
+        for (var i=0;i<4;i++)
+            this.gamepads.push(new SingleGamepad(i))
     }
     
     getInfo() {
@@ -16,7 +125,7 @@ class ScratchGamepad {
             "blocks": [{
                         "opcode": "buttonPressedReleased",
                         "blockType": "hat",
-                        "text": "button [b] [pr]",
+                        "text": "button [b] [pr] of pad [i]",
                         "arguments": {
                             "b": {
                                 "type": "number",
@@ -27,45 +136,65 @@ class ScratchGamepad {
                                 "defaultValue": "1",
                                 "menu": "pressReleaseMenu"
                             },
+                            "i": {
+                                "type": "number",
+                                "defaultValue": "1",
+                                "menu": "padMenu"
+                            },
                         },
                     },
                     {
                         "opcode": "buttonDown",
                         "blockType": "Boolean",
-                        "text": "button [b] is down",
+                        "text": "button [b] of pad [i] is down",
                         "arguments": {
                             "b": {
                                 "type": "number",
                                 "defaultValue": "0"
+                            },
+                            "i": {
+                                "type": "number",
+                                "defaultValue": "1",
+                                "menu": "padMenu"
                             },
                         },                    
                     },
                     {
                         "opcode": "axisMoved",
                         "blockType": "hat",
-                        "text": "axis [b] moved",
+                        "text": "axis [b] of pad [i] moved",
                         "arguments": {
                             "b": {
                                 "type": "number",
                                 "defaultValue": "0"
+                            },
+                            "i": {
+                                "type": "number",
+                                "defaultValue": "1",
+                                "menu": "padMenu"
                             },
                         },
                     },
                     {
                         "opcode": "axisValue",
                         "blockType": "reporter",
-                        "text": "axis [b] value",
+                        "text": "axis [b] of pad [i] value",
                         "arguments": {
                             "b": {
                                 "type": "number",
                                 "defaultValue": "0"
+                            },
+                            "i": {
+                                "type": "number",
+                                "defaultValue": "1",
+                                "menu": "padMenu"
                             },
                         },                    
                     },
                     {
                         "opcode": "rumble",
                         "blockType": "command",
-                        "text": "rumble strong [s] and weak [w] for [t] sec.",
+                        "text": "rumble strong [s] and weak [w] for [t] sec. on pad [i]",
                         "arguments": {
                             "s": {
                                 "type": "number",
@@ -79,98 +208,42 @@ class ScratchGamepad {
                                 "type": "number",
                                 "defaultValue": "0.25"
                             },
+                            "i": {
+                                "type": "number",
+                                "defaultValue": "1",
+                                "menu": "padMenu"
+                            },
                         },                    
                     },
             ],
             "menus": {
                 "pressReleaseMenu": [{text:"press",value:1}, {text:"release",value:0}],
+                "padMenu": {
+                            acceptReporters=true, 
+                            items=[{text:"1",value:1}, {text:"2",value:2}, {text:"3",value:3}, {text:"4",value:4}],
+                }
             }            
         };
     }
     
-    update() {
-        if (this.runtime.currentMSecs == this.currentMSecs)
-            return
-        this.currentMSecs = this.runtime.currentMSecs
-        var gamepads = navigator.getGamepads()
-        if (gamepads == null || gamepads.length == 0 || gamepads[0] == null) {
-            this.previousButtons = []
-            this.currentButtons = []
-            this.axes = []
-            return
-        }
-        var gamepad = gamepads[0]
-        if (gamepad.id != this.id) {
-            this.id = gamepad.id
-            this.previousButtons = []
-            for (var i = 0; i < gamepad.buttons.length; i++) 
-                this.previousButtons.push(false)
-            this.previousAxes = []
-            for (var i = 0; i < gamepad.axes.length; i++) 
-                this.previousAxes.push(0)
-        }
-        else {
-            this.previousButtons = this.currentButtons
-            this.previousAxes = this.currentAxes
-        }
-        this.currentButtons = []
-        for (var i = 0; i < gamepad.buttons.length; i++) 
-            this.currentButtons.push(gamepad.buttons[i].pressed)
-        this.currentAxes = []
-        for (var i = 0; i < gamepad.axes.length; i++)
-            this.currentAxes.push(gamepad.axes[i])
-    }
-    
-    buttonPressedReleased({b,pr}) {
-        this.update()
-        if (b < this.currentButtons.length) {
-            if (pr == 1) {
-                if (this.currentButtons[b] && ! this.previousButtons[b]) {
-                    return true
-                }
-            }
-            else {
-                if (!this.currentButtons[b] && this.previousButtons[b]) {
-                    return true
-                }
-             }
-        }
-        return false
+    buttonPressedReleased({b,pr,i}) {
+        return this.gamepads[i-1].getButton(this.runtime.currentMSecs) == pr
     }
 
-    axisMoved({b}) {
-        this.update()
-        if (b < this.currentAxes.length) {
-            return this.currentAxes[b] != this.previousAxes[b]
-        }
-        return false
+    axisMoved({b,i}) {
+        return this.gamepads[i-1].changedAxis(b)
     }
     
-    axisValue({b}) {
-        this.update()
-        if (b < this.currentAxes.length)
-            return this.currentAxes[b]
-        else
-            return 0
+    axisValue({b,i}) {
+        return this.gamepads[i-1].getAxis(b)
     }
     
-    buttonDown({b}) {
-        this.update()
-        if (b < this.currentButtons.length)
-            return this.currentButtons[b]
-        else
-            return 0
+    buttonDown({b,i}) {
+        return this.gamepads[i-1].getButton(b)
     }
     
-    rumble({s,w,t}) {
-        var gamepad = this.getGamepad()
-        if (gamepad != null && gamepad.vibrationActuator) {
-            gamepad.vibrationActuator.playEffect("dual-rumble", {
-                duration: 1000*t,
-                strongMagnitude: Math.max(0,Math.min(s,1)),
-                weakMagnitude: Math.max(0,Math.min(w,1))
-            });
-        }
+    rumble({s,w,t,i}) {
+        this.gamepads[i-1].rumble(s,w,t)
     }
 }
 
