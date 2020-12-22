@@ -1183,11 +1183,12 @@ class RaspberryJamMod {
 }
 
 (function() {
+    var extensionClass = RaspberryJamMod
     if (typeof window === "undefined" || !window.vm) {
-        Scratch.extensions.register(new RaspberryJamMod())
+        Scratch.extensions.register(new extensionClass())
     }
     else {
-        var extensionInstance = new RaspberryJamMod(window.vm.extensionManager.runtime)
+        var extensionInstance = new extensionClass(window.vm.extensionManager.runtime)
         var serviceName = window.vm.extensionManager._registerInternalExtension(extensionInstance)
         window.vm.extensionManager._loadedExtensions.set(extensionInstance.getInfo().id, serviceName)
     }
