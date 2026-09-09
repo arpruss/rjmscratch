@@ -51,7 +51,7 @@ class SingleGamepad {
         }
         else {
             this.previousButtons = this.currentButtons
-            this.previousAxes = this.previousAxes
+            this.previousAxes = this.currentAxes
         }
         
         this.currentButtons = []
@@ -63,7 +63,6 @@ class SingleGamepad {
         for (var i=0;i<gamepad.axes.length;i++) {
             this.currentAxes.push(gamepad.axes[i])
         }
-        console.log(this.currentButtons)
     }
     
     pressedReleased(currentMSecs,i,pr) {
@@ -87,7 +86,6 @@ class SingleGamepad {
     
     getButton(currentMSecs,i) {
         this.update(currentMSecs)
-        console.log(""+currentMSecs+" "+i+this.currentButtons)
         if (i < this.currentButtons.length) {
             return this.currentButtons[i]
         }
@@ -105,7 +103,7 @@ class SingleGamepad {
     }
     
     rumble(s,w,t) {
-        var gamepad = this.gamepads[i].getGamepad()
+        var gamepad = this.getGamepad(this.index)
         if (gamepad != null && gamepad.vibrationActuator) {
             gamepad.vibrationActuator.playEffect("dual-rumble", {
                 duration: 1000*t,
