@@ -49,7 +49,7 @@ class ScratchFetch {
             if (t == "string" || t == "number")
                 return out
             if (t == "boolean")
-                return t ? 1 : 0
+                return out ? 1 : 0
             return JSON.stringify(out)
         }
         else {

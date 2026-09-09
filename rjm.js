@@ -1015,7 +1015,7 @@ class RaspberryJamMod {
                     for(var i=0;i<hits.length;i++)
                         rjm.hits.push(hits[i].split(",").map(parseFloat));
                 }
-                return ""+this.shift.pop().slice(0,3);
+                return rjm.hits.length > 0 ? ""+rjm.hits.shift().slice(0,3) : "";
             });
     };
 
